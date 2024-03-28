@@ -1,4 +1,4 @@
-<h1 align="center" style="margin: 28px 28px; font-weight: bold;">YuXi v0.0.1</h1>
+<h1 align="center" style="margin: 28px 0; font-weight: bold;">YuXi v0.0.1</h1>
 
 ## 平台简介
 
