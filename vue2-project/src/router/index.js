@@ -39,10 +39,61 @@ export const constantRoutes = [{
                 import ('@/views/redirect')
         }]
     },
+
+
+
     {
         path: '/HelloWorld',
         component: () =>
             import ('@/components/HelloWorld'),
+        hidden: true
+    },
+    {
+        path: '/login',
+        name: 'login',
+        component: () =>
+            import ('@/views/login/login.vue')
+    },
+    {
+        path: '/',
+        name: 'home',
+        redirect: '/welcome',
+        component: () =>
+            import ('@/views/home/home.vue'),
+        children: [{
+                name: 'welcome',
+                path: '/welcome',
+                component: () =>
+                    import ('@/views/login/welcome.vue')
+            },
+            {
+                name: "admin",
+                path: '/admin',
+                component: () =>
+                    import ('@/views/adminSystem/admin'),
+                hidden: true
+            },
+            {
+                name: "users",
+                path: '/users',
+                component: () =>
+                    import ('@/views/adminSystem/user'),
+                hidden: true
+            },
+
+        ]
+    },
+
+    {
+        path: '/404',
+        component: () =>
+            import ('@/views/error/404'),
+        hidden: true
+    },
+    {
+        path: '/401',
+        component: () =>
+            import ('@/views/error/401'),
         hidden: true
     },
 

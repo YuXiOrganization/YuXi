@@ -78,7 +78,7 @@
 
 <style lang="scss" scoped>
 .layout {
-  @include clearfix;
+
   position: relative;
   height: 100%;
   width: 100%;
