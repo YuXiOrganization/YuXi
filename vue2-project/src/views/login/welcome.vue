@@ -1,22 +1,39 @@
 <template>
-  <div class="welcome">
+  <div class="welcome" >
     <div>cscscs</div>
-    <!-- <welcome></welcome> -->
+    <testView v-for="(item, index) in formdata" :key="index" :item="item"></testView>
   </div>
 </template>
 
 <script>
+import testView from "@/views/login/testView";
 export default {
-  name:'welcome',
+  name: "welcome",
+  components: {
+    testView,
+  },
   data() {
     return {
       labelPosition: "top",
-      formdata: {
-        username: "",
-        password: "",
-      },
+      formdata: [
+        {
+          hidden: false,
+          name: "1",
+          children: [
+            {
+              hidden: false,
+              name: "1-2",
+            },
+          ],
+        },
+        {
+          hidden: false,
+          name: "2",
+        },
+      ],
     };
   },
+
   created() {},
   methods: {},
 };

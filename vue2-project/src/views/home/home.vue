@@ -4,9 +4,10 @@
 
     <div class="main-container">
       <navbar></navbar>
+      <router-view></router-view>
     </div>
 
-    <router-view></router-view>
+   
   </div>
 </template>
 
