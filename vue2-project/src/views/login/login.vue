@@ -1,24 +1,25 @@
 <template>
-  <div class="loginbao">
-    <!-- <img class="loginimg" src="@/assets/image/login.jpg" alt="无法显示" /> -->
-    <div class="loginbaobao">
-      <div class="login-wrap">
-        <el-form
-          class="login-form"
-          :label-position="labelPosition"
-          label-width="80px"
-          :model="formdata"
-        >
-          <h2>用户登录</h2>
-          <el-form-item label="用户名">
-            <el-input v-model="formdata.username"></el-input>
-          </el-form-item>
-          <el-form-item label="密码">
-            <el-input type="password" v-model="formdata.password"></el-input>
-          </el-form-item>
+  <div class="login">
+    <div class="login-wrap">
+      <h2 class="login-wrap-title">Yu Xi Admin</h2>
+
+      <el-form :label-position="labelPosition" :model="formdata">
+        <el-form-item>
+          <el-input placeholder="请输入账号" v-model="formdata.username">
+            <i slot="prefix" class="el-input__icon el-icon-user"></i>
+          </el-input>
+        </el-form-item>
+        <el-form-item>
+          <el-input placeholder="请输入密码" v-model="formdata.password">
+            <i slot="prefix" class="el-input__icon el-icon-lock"></i>
+          </el-input>
+          <!-- <el-input type="password" v-model="formdata.password"></el-input> -->
+        </el-form-item>
+
+        <el-form-item>
           <el-button class="login-btn" type="primary" @click="getlogin">登录</el-button>
-        </el-form>
-      </div>
+        </el-form-item>
+      </el-form>
     </div>
   </div>
 </template>
@@ -27,10 +28,10 @@
 export default {
   data() {
     return {
-      labelPosition: "top",
+      labelPosition: "left",
       formdata: {
-        username: "",
-        password: "",
+        username: "admin",
+        password: "123456",
       },
       // 表单数据
 
@@ -118,39 +119,26 @@ export default {
   },
 };
 </script>
-<style scoped>
-.loginbao {
-  position: relative;
-  top: 0;
-  left: 0;
+<style lang="scss" scoped>
+.login {
   width: 100%;
   height: 100%;
-}
-.loginbaobao {
-  position: absolute;
-  width: 100%;
-  height: 100%;
-}
-.loginimg {
-  position: absolute;
-  width: 100%;
-  height: 100%;
-}
-.login-wrap {
-  height: 100%;
-  width: 100%;
   display: flex;
-  justify-content: center;
   align-items: center;
-}
-.login-form {
-  width: 400px;
-  background-color: #fff;
-  border-radius: 5px;
-  padding: 30px;
-}
-.login-btn {
-  margin: 20px 0 10px 0;
-  width: 100%;
+  justify-content: center;
+  background-color: #abd9b5;
+  .login-wrap {
+    border-radius: 8px;
+    width: 300px;
+    padding: 20px;
+    background-color: rgb(255 255 255 / 0.2);
+    box-shadow: 0 1px 2px -2px #00000029, 0 3px 6px #0000001f, 0 5px 12px 4px #00000017;
+
+    .login-wrap-title {
+      padding: 10px 0 20px 0;
+      font-weight: normal;
+      text-align: center;
+    }
+  }
 }
 </style>

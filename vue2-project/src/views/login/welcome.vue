@@ -1,11 +1,13 @@
 <template>
-  <div class="loginbao">
+  <div class="welcome">
     <div>cscscs</div>
+    <!-- <welcome></welcome> -->
   </div>
 </template>
 
 <script>
 export default {
+  name:'welcome',
   data() {
     return {
       labelPosition: "top",
@@ -19,8 +21,8 @@ export default {
   methods: {},
 };
 </script>
-<style>
-.loginbao {
+<style lang="scss" scoped>
+.welcome {
   position: relative;
   top: 0;
   left: 0;

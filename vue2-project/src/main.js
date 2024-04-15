@@ -1,3 +1,5 @@
+import '@/assets/styles/overallSituation.scss'
+
 import Vue from 'vue'
 import App from './App.vue'
 

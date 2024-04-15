@@ -1,13 +1,19 @@
 <template>
-  <div class="home_wrapper">
-  
-  
+  <div :class="classObj" class="home_wrapper">
+    <sidebar v-if="!sidebar.hide" class="sidebar-container"></sidebar>
+
+    <div class="main-container">
+      <navbar></navbar>
+    </div>
+
+    <router-view></router-view>
   </div>
 </template>
 
 <script>
-import { mapState } from "vuex";
-// import { initDynamicRoutes } from "@/router/index.js";
+import navbar from "@/views/home/overallLayout/Navbar";
+import { mapState,mapGetters } from "vuex";
+import sidebar from "@/views/home/overallLayout/sidebar";
 export default {
   data() {
     return {
@@ -21,16 +27,23 @@ export default {
       islook: true,
     };
   },
+  components: {
+    sidebar,
+    navbar,
+  },
   computed: {
     ...mapState(["rightList", "username"]),
+    ...mapGetters(["sidebar"]),
+    classObj() {
+      return {
+        hideSidebar: !this.sidebar.opened,
+        openSidebar: this.sidebar.opened,
+        withoutAnimation: this.sidebar.withoutAnimation,
+        mobile: this.device === 'mobile'
+      }
+    },
   },
-  // newVue之前自动触发
-  // beforeCreate() {
-  //   const token = localStorage.getItem("token");
-  //   if (!token) {
-  //     this.$router.push({ name: "login" });
-  //   }
-  // },
+
   created() {
     this.activePath = window.sessionStorage.getItem("activePath");
   },
@@ -83,15 +96,15 @@ export default {
 };
 </script>
 <style scoped lang="scss">
-.toggle-button {
-  background-color: #363e4f;
-  font-size: 10px;
-  line-height: 24px;
-  color: #ffffff;
-  text-align: center;
-  letter-spacing: 0.2em;
-  cursor: pointer;
-}
+// .toggle-button {
+//   background-color: #363e4f;
+//   font-size: 10px;
+//   line-height: 24px;
+//   color: #ffffff;
+//   text-align: center;
+//   letter-spacing: 0.2em;
+//   cursor: pointer;
+// }
 /* 头部布局 */
 .home_wrapper {
   position: relative;
