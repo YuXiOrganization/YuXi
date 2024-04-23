@@ -1,19 +1,36 @@
 <template>
   <div class="navbar">
+
     <hamburger
       id="hamburger-container"
       :is-active="sidebar.opened"
       class="hamburger-container"
       @toggleClick="toggleSideBar"
     />
-
-    <div class="right-menu"></div>
+ 
+    <div class="right-menu">
+      <template v-if="device !== 'mobile'">
+        <i :class="isDark ? 'el-icon-moon' : 'el-icon-sunny'" @click="toggleDark" />
+      </template>
+      <el-dropdown class="avatar-container right-menu-item hover-effect" trigger="click">
+        <div class="avatar-wrapper">
+          <img :src="avatar" class="user-avatar" />
+          <i class="el-icon-caret-bottom" />
+        </div>
+        <el-dropdown-menu slot="dropdown">
+          <el-dropdown-item divided @click.native="logout">
+            <span>退出登录</span>
+          </el-dropdown-item>
+          
+        </el-dropdown-menu>
+      </el-dropdown>
+    </div>
   </div>
 </template>
 
 <script>
+import logoImg from "@/assets/image/logo/logo.png";
 import { mapGetters } from "vuex";
-
 import Hamburger from "@/views/home/overallLayout/Hamburger";
 
 export default {
@@ -22,13 +39,29 @@ export default {
   },
   data() {
     return {
-      // sidebar: true,
+      // sidebar: require("@/assets/images/profile.jpg"),
+      avatar: logoImg,
+      isDark: false,
     };
   },
   computed: {
-    ...mapGetters(["sidebar"]),
+    ...mapGetters(["sidebar", "device"]),
   },
+  mounted() {},
   methods: {
+    toggleDark() {
+      this.isDark = !this.isDark;
+      // 获取html根元素标签
+      let html = document.documentElement;
+      if (this.isDark) {
+        // html添加class="dark"选择器
+        html.classList.add("dark");
+      } else {
+        // html移除class="dark"选择器
+        html.classList.remove("dark");
+      }
+    },
+
     toggleSideBar() {
       // console.log("$store",this.$store)
       this.$store.dispatch("app/toggleSideBar");
@@ -40,8 +73,9 @@ export default {
         type: "warning",
       })
         .then(() => {
-          this.$store.dispatch("LogOut").then(() => {
-            location.href = "/index";
+          // console.log(" this.$store", this.$store);
+          this.$store.dispatch("user/LogOut").then(() => {
+            location.href = "/login";
           });
         })
         .catch(() => {});

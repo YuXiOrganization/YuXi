@@ -1,6 +1,6 @@
 <template>
   <div>
-    <!-- <logo v-if="showLogo" :collapse="isCollapse" /> -->
+    <logo :collapse="isCollapse" />
     <el-scrollbar wrap-class="scrollbar-wrapper">
       <!-- background-color="#545c64"
         text-color="#fff"
@@ -25,11 +25,13 @@
 </template>
 
 <script>
+import logo from '@/views/home/overallLayout/logo'
 import { mapGetters, mapState } from "vuex";
 import SidebarItem from "@/views/home/overallLayout/SidebarItem";
 export default {
   components: {
     SidebarItem,
+    logo
   },
   data() {
     return {

@@ -5,7 +5,8 @@ const state = {
         hide: false
     },
     device: 'desktop',
-    size: sessionStorage.getItem('size') || 'medium'
+    size: sessionStorage.getItem('size') || 'medium',
+
 }
 
 const mutations = {
@@ -35,10 +36,13 @@ const mutations = {
     },
     SET_SIDEBAR_HIDE: (state, status) => {
         state.sidebar.hide = status
-    }
+    },
+
+
 }
 
 const actions = {
+
     toggleSideBar({
         commit
     }) {

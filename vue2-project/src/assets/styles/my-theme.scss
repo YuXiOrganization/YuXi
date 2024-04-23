@@ -1,0 +1,28 @@
+@import './variables.scss';
+// 黑暗主题
+.dark {
+    .el-submenu__title {
+        background-color: #121212;
+        color: #fff;
+    }
+    .el-submenu__title:hover {
+        background-color: #18222b;
+    }
+    .el-menu--inline {
+        background-color: #121212;
+        color: #fff;
+    }
+    .el-menu-item.is-active {
+        color: var($light-blue);
+    }
+    .el-menu-item {
+        background-color: #121212;
+        color: #fff;
+    }
+    .el-menu-item:hover {
+        background-color: #18222b;
+    }
+    .el-card {
+        background-color: #121212;
+    }
+}
