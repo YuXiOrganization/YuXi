@@ -4,6 +4,12 @@
         transition: margin-left .28s;
         margin-left: $base-sidebar-width;
         position: relative;
+        display: flex;
+        flex-direction: column;
+        .main-container-view {
+            display: flex;
+            flex: auto;
+        }
     }
     .sidebarHide {
         margin-left: 0!important;

@@ -9,8 +9,7 @@
 
     <div class="main-container">
       <navbar></navbar>
-      
-      <router-view></router-view>
+      <router-view class="main-container-view"></router-view>
     </div>
   </div>
 </template>

@@ -1,7 +1,16 @@
 <template>
-  <div class="welcome" >
-    <div>cscscs</div>
-    <testView v-for="(item, index) in formdata" :key="index" :item="item"></testView>
+  <div class="welcome">
+    <transition name="fade" mode="out-in" appear>
+      <el-card class="box-card">
+        <div v-for="o in 4" :key="o" class="text item">
+          {{ "列表内容 " + o }}
+        </div>
+      </el-card>
+    </transition>
+    <!-- <main class="welcome-card">
+      <div>cscscs</div>
+      <testView v-for="(item, index) in formdata" :key="index" :item="item"></testView>
+    </main> -->
   </div>
 </template>
 
@@ -40,10 +49,34 @@ export default {
 </script>
 <style lang="scss" scoped>
 .welcome {
-  position: relative;
-  top: 0;
-  left: 0;
   width: 100%;
-  height: 100%;
+  background-color: #f5f6fb;
+  display: flex;
+  // align-items: center;
+  // justify-content: center;
+  // background-color: #f5f6fb;
+  /* 在CSS中定义与transition name关联的过渡类名 */
+  .fade-enter-active,
+  .fade-leave-active {
+    transition: opacity 0.5s ease, transform 0.5s;
+    // transition: opacity 0.5s;
+  }
+  .fade-enter {
+    opacity: 0;
+    transform: translateX(-30px);
+  }
+  /* .fade-leave-active below version 2.1.8 */
+  .fade-leave-to {
+    opacity: 0;
+    transform: translateX(30px);
+  }
+
+  .box-card {
+    display: flex;
+    flex: auto;
+    margin: 12px;
+    border-radius: 8px;
+    // padding: 5px;
+  }
 }
 </style>
