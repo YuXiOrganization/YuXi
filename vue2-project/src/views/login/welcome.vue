@@ -1,25 +1,19 @@
 <template>
-  <div class="welcome">
-    <transition name="fade" mode="out-in" appear>
-      <el-card class="box-card">
-        <div v-for="o in 4" :key="o" class="text item">
-          {{ "列表内容 " + o }}
-        </div>
-      </el-card>
-    </transition>
-    <!-- <main class="welcome-card">
-      <div>cscscs</div>
-      <testView v-for="(item, index) in formdata" :key="index" :item="item"></testView>
-    </main> -->
-  </div>
+  <CommonPage>
+    <div v-for="o in 4" :key="o" class="text item">
+      {{ "列表内容 " + o }}
+    </div>
+  </CommonPage>
 </template>
 
 <script>
+import CommonPage from "@/components/common/CommonPage.vue";
 import testView from "@/views/login/testView";
 export default {
   name: "welcome",
   components: {
     testView,
+    CommonPage,
   },
   data() {
     return {

@@ -25,61 +25,60 @@
 </template>
 
 <script>
-import logo from '@/views/home/overallLayout/logo'
-import { mapGetters, mapState } from "vuex";
+import logo from "@/views/home/overallLayout/logo";
+import { mapGetters } from "vuex";
 import SidebarItem from "@/views/home/overallLayout/SidebarItem";
 export default {
   components: {
     SidebarItem,
-    logo
+    logo,
   },
   data() {
     return {
-      rightList: [
-        {
-          name: "adminSystem",
-          path: "/adminSystem",
-          hidden: false,
-          component: "/system/user/index",
-          meta: {
-            title: "用户管理",
-            icon: "el-icon-s-tools",
-            noCache: false,
-            link: null,
-          },
-          children: [
-            {
-              name: "admin",
-              path: "/admin",
-              hidden: false,
-              component: "adminSystem/admin",
-              meta: {
-                title: "管理员列表",
-                icon: "el-icon-s-tools",
-                noCache: false,
-                link: null,
-              },
-            },
-            {
-              name: "users",
-              path: "/users",
-              hidden: false,
-              component: "adminSystem/user",
-              meta: {
-                title: "管理员列表",
-                icon: "el-icon-s-tools",
-                noCache: false,
-                link: null,
-              },
-            },
-          ],
-        },
-      ],
+      // rightList: [
+      //   {
+      //     name: "adminSystem",
+      //     path: "/adminSystem",
+      //     hidden: false,
+      //     component: "/system/user/index",
+      //     meta: {
+      //       title: "用户管理",
+      //       icon: "el-icon-s-tools",
+      //       noCache: false,
+      //       link: null,
+      //     },
+      //     children: [
+      //       {
+      //         name: "admin",
+      //         path: "/admin",
+      //         hidden: false,
+      //         component: "adminSystem/admin",
+      //         meta: {
+      //           title: "管理员列表",
+      //           icon: "el-icon-s-tools",
+      //           noCache: false,
+      //           link: null,
+      //         },
+      //       },
+      //       {
+      //         name: "users",
+      //         path: "/users",
+      //         hidden: false,
+      //         component: "adminSystem/user",
+      //         meta: {
+      //           title: "管理员列表",
+      //           icon: "el-icon-s-tools",
+      //           noCache: false,
+      //           link: null,
+      //         },
+      //       },
+      //     ],
+      //   },
+      // ],
     };
   },
   computed: {
-    // ...mapState(['rightList']),
-    ...mapGetters(["sidebar"]),
+    ...mapGetters(["sidebar","rightList"]),
     activeMenu() {
       const route = this.$route;
       const { meta, path } = route;
@@ -99,6 +98,9 @@ export default {
     isCollapse() {
       return !this.sidebar.opened;
     },
+  },
+  created() {
+    console.log("rightList");
   },
   methods: {
     handleOpen(key, keyPath) {

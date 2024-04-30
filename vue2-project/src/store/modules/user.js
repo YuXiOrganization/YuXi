@@ -2,6 +2,12 @@ const user = {
     namespaced: true,
     state: {
         token: localStorage.getItem("token") || null,
+        rightList: JSON.parse(localStorage.getItem("rightList")) || null,
+    },
+    mutations: {
+        SET_RIGHT_LIST: (state, status) => {
+            state.rightList = status
+        },
     },
     actions: {
         // 退出系统
