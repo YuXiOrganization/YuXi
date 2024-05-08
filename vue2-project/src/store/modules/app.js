@@ -7,6 +7,9 @@ const state = {
     device: 'desktop',
     size: sessionStorage.getItem('size') || 'medium',
 
+    cachedViews: [],
+
+
 }
 
 const mutations = {
@@ -37,6 +40,9 @@ const mutations = {
     SET_SIDEBAR_HIDE: (state, status) => {
         state.sidebar.hide = status
     },
+    SET_CACHEDVIEWS: (state, status) => {
+        state.cachedViews = status
+    }
 
 
 }

@@ -16,7 +16,7 @@
       >
         <SidebarItem
           v-for="(route, index) in rightList"
-          :key="route.path + index"
+          :key="route.meta.id + index"
           :item="route"
         ></SidebarItem>
       </el-menu>
@@ -100,7 +100,7 @@ export default {
     },
   },
   created() {
-    console.log("rightList");
+    console.log("rightList",this.rightList);
   },
   methods: {
     handleOpen(key, keyPath) {

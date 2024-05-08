@@ -2,19 +2,39 @@ import {
     axios
 } from '@/utils/request'
 
-//post
-const postAction = (url, parameter) => {
+
+//postForm
+const postFormAction = (url, parameter, headers) => {
     // let sign = signMd5Utils.getSign(url, parameter);
     // //将签名和时间戳，添加在请求接口 Header
-    // let signHeader = {
-    //     "X-Sign": sign,
-    //     "X-TIMESTAMP": signMd5Utils.getDateTimeToString()
-    // };
+
     return axios({
         url: url,
         method: 'post',
         data: parameter,
-        // headers: signHeader
+        headers: {
+            "Content-Type": 'multipart/form-data'
+        }
+    })
+}
+
+//post
+const postAction = (url, parameter, headers) => {
+    // let sign = signMd5Utils.getSign(url, parameter);
+    // //将签名和时间戳，添加在请求接口 Header
+    let signHeader
+    if (headers) {
+        signHeader = headers.reduce((accumulator, currentValue) => {
+            accumulator[currentValue.key] = currentValue.value;
+            return accumulator;
+        }, {});
+    }
+
+    return axios({
+        url: url,
+        method: 'post',
+        data: parameter,
+        headers: signHeader
     })
 }
 
@@ -72,5 +92,6 @@ export {
     getAction,
     httpAction,
     putAction,
-    deleteAction
+    deleteAction,
+    postFormAction
 }

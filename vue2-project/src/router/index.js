@@ -80,6 +80,13 @@ export const constantRoutes = [{
                     import ('@/views/adminSystem/user'),
                 hidden: true
             },
+            // {
+            //     name: "agent",
+            //     path: '/html/agent/agent',
+            //     component: () =>
+            //         import ('@/views/html/agent/agent'),
+            //     hidden: true
+            // },
 
         ]
     },

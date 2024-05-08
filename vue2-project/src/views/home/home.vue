@@ -9,12 +9,17 @@
 
     <div class="main-container">
       <navbar></navbar>
-      <router-view class="main-container-view"></router-view>
+      <!-- v-model="activeName" @tab-click="handleClick" -->
+      <TagsView />
+      <keep-alive :include="cachedViews">
+        <router-view class="main-container-view"></router-view>
+      </keep-alive>
     </div>
   </div>
 </template>
 
 <script>
+import TagsView from "@/views/home/overallLayout/TagsView/TagsView";
 import ResizeHandler from "@/views/home/mixin/ResizeHandler";
 import navbar from "@/views/home/overallLayout/Navbar";
 import { mapState, mapGetters } from "vuex";
@@ -36,6 +41,7 @@ export default {
   components: {
     sidebar,
     navbar,
+    TagsView,
   },
   computed: {
     ...mapGetters(["sidebar", "device"]),
@@ -46,6 +52,13 @@ export default {
         withoutAnimation: this.sidebar.withoutAnimation,
         mobile: this.device === "mobile",
       };
+    },
+    cachedViews() {
+      console.log(
+        "this.$store.state.tagsView.cachedViews",
+        this.$store.state.app.cachedViews
+      );
+      return this.$store.state.app.cachedViews;
     },
   },
 

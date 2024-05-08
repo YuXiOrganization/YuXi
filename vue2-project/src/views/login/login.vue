@@ -46,7 +46,8 @@
 </template>
 
 <script>
-import { postAction } from "@/api/currencyApi";
+import { postAction, postFormAction } from "@/api/currencyApi";
+import { sortFun, handleTree } from "@/utils/collectionMethods/arrayMethods";
 export default {
   data() {
     return {
@@ -137,61 +138,81 @@ export default {
   methods: {
     // 图片验证码
     async getLoginVerifyCode() {
-      const { data, msg, success } = await postAction("/getLoginVerifyCode");
-
+      const { data, success } = await postAction("/getLoginVerifyCode");
       if (success) {
-        console.log("data", data);
+        // console.log("data", data);
         this.formdata.img = data.img;
         this.formdata.jwt_verify_code = data.VERIFY_CODE;
       }
-
-      // var _this = this;
-      // $.ajax({
-      //   type: "post",
-      //   url: getPathUrl("getLoginVerifyCode") + "?t=" + Math.random(),
-      //   data: {},
-      //   success: function (data) {
-      //     _this.loginVerifyCode.img = data.data.img;
-      //     _this.loginVerifyCode.jwt_verify_code = data.data.VERIFY_CODE;
-      //   },
-      // });
     },
     async getlogin() {
-      //   let option = {
-      //     account: this.formdata.username,
-      //     password: this.formdata.password,
-      //   };
-      //   const res = await this.api.user.login(option);
+      //把Request Payload转为Form Data 案例
+      const { msg, success } =await this.$store.dispatch("user/Login", this.formdata);
 
-      //   const { msg } = res;
-      //   if (res.code == 1) {
-      //     localStorage.setItem("token", res.msg);
-      //     window.sessionStorage.setItem("token", res.msg);
-      //     this.$router.push("/");
-      //     console.log("csc");
-
-      //     localStorage.setItem("rightList", JSON.stringify(this.menuListone));
-      //     this.$message({
-      //       message: msg,
-      //       type: "success",
-      //     });
-      //   } else {
-      //     this.$message({
-      //       message: msg,
-      //       type: "warning",
-      //     });
-      //   }
-
-      if (this.formdata.username == "admin" && this.formdata.password == "123456") {
-        localStorage.setItem("rightList", JSON.stringify(this.menuListone));
-        localStorage.setItem("token", this.formdata.username);
+      console.log("success",success)
+      if (success) {
+        this.$message({
+          message: msg,
+          type: "success",
+        });
         this.$router.push({ path: "/" });
       } else {
         this.$message({
-          message: "账号或密码错误",
+          message: msg,
           type: "warning",
         });
       }
+
+      // let testArray = [
+      //   {
+      //     children: [
+      //       {
+      //         children: [],
+      //         iconcls: "2",
+      //         id: "2",
+      //         text: "2",
+      //         url: "2",
+      //       },
+      //     ],
+      //     iconcls: "1",
+      //     id: "1",
+      //     text: "1",
+      //     url: "1",
+      //   },
+      //   {
+      //     children: [
+      //       {
+      //         children: [],
+      //         iconcls: "4",
+      //         id: "4",
+      //         text: "4",
+      //         url: "4",
+      //       },
+      //     ],
+      //     iconcls: "3",
+      //     id: "3",
+      //     text: "3",
+      //     url: "3",
+      //   },
+      // ];
+      // console.log("testArray", testArray);
+      // let getfun = handleTree(testArray);
+
+      // console.log("getfun", getfun);
+
+      // if (this.formdata.username == "admin" && this.formdata.password == "123456") {
+      //   localStorage.setItem("rightList", JSON.stringify(this.menuListone));
+      //   localStorage.setItem("token", this.formdata.username);
+
+      //   this.$store.dispatch("user/Login",this.menuListone)
+
+      //   this.$router.push({ path: "/" });
+      // } else {
+      //   this.$message({
+      //     message: "账号或密码错误",
+      //     type: "warning",
+      //   });
+      // }
     },
   },
 };

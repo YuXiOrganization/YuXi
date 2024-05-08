@@ -3,14 +3,14 @@
     <template v-if="changeBoolean(item)">
       <el-menu-item
         @click="routePath(item.path)"
-        :index="item.path"
+        :index="item.meta.id"
         :class="{ 'submenu-title-noDropdown': !isNest }"
       >
         <MenuItem :icon="item.meta.icon" :title="item.meta.title" />
       </el-menu-item>
     </template>
 
-    <el-submenu v-else ref="subMenu" :index="item.path" popper-append-to-body>
+    <el-submenu v-else ref="subMenu" :index="item.meta.id" popper-append-to-body>
       <template slot="title">
         <MenuItem
           v-if="item.meta"
@@ -20,7 +20,7 @@
       </template>
       <sidebar-item
         v-for="(child, index) in item.children"
-        :key="child.path + index"
+        :key="child.meta.id + index"
         :is-nest="true"
         :item="child"
         class="nest-menu"

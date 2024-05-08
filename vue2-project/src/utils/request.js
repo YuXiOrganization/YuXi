@@ -1,9 +1,9 @@
 import axios from 'axios'
 
 
-console.log("process.env.VUE_APP_API_BASE_URL= ", process.env.VUE_APP_BASE_API)
+// console.log("process.env.VUE_APP_API_BASE_URL= ", process.env.VUE_APP_BASE_API)
 let apiBaseUrl = process.env.VUE_APP_BASE_API
-console.log("apiBaseUrl= ", apiBaseUrl)
+    // console.log("apiBaseUrl= ", apiBaseUrl)
     // 创建 axios 实例
 const service = axios.create({
     //baseURL: '/jeecg-boot',
@@ -69,7 +69,7 @@ const err = (error) => {
 service.interceptors.request.use(config => {
     const token = localStorage.getItem("token")
     if (token) {
-        config.headers['X-Access-Token'] = token // 让每个请求携带自定义 token 请根据实际情况自行修改
+        config.headers['Admintoken'] = token // 让每个请求携带自定义 token 请根据实际情况自行修改
     }
     return config
 }, (error) => {
