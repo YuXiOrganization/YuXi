@@ -54,10 +54,10 @@ export default {
       };
     },
     cachedViews() {
-      console.log(
-        "this.$store.state.tagsView.cachedViews",
-        this.$store.state.app.cachedViews
-      );
+      // console.log(
+      //   "this.$store.state.tagsView.cachedViews",
+      //   this.$store.state.app.cachedViews
+      // );
       return this.$store.state.app.cachedViews;
     },
   },
@@ -65,9 +65,9 @@ export default {
   created() {
     this.activePath = window.sessionStorage.getItem("activePath");
 
-    this.$nextTick(() => {
-      console.log("this.device", this.device);
-    });
+    // this.$nextTick(() => {
+    //   console.log("this.device", this.device);
+    // });
   },
 
   // mounted() {

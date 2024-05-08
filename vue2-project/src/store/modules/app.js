@@ -6,13 +6,16 @@ const state = {
     },
     device: 'desktop',
     size: sessionStorage.getItem('size') || 'medium',
-
-    cachedViews: [],
-
-
+    cachedViews: [{
+        name: '首页',
+        path: '/welcome'
+    }],
 }
 
 const mutations = {
+    SET_CACHED_VIEWS: (state, status) => {
+        state.cachedViews = status
+    },
     TOGGLE_SIDEBAR: state => {
         if (state.sidebar.hide) {
             return false;
@@ -75,6 +78,17 @@ const actions = {
         commit
     }, status) {
         commit('SET_SIDEBAR_HIDE', status)
+    },
+    addCachedViews({
+        commit,
+        state
+    }, status) {
+        if (state.cachedViews.some(v => v.path === status.path)) return
+
+        let getCachedViews = state.cachedViews
+        getCachedViews.push(status)
+
+        commit('SET_CACHED_VIEWS', getCachedViews)
     }
 }
 

@@ -4,14 +4,15 @@
       <div ref="tagViews" class="tag-views-test">
         <div ref="tagViewsScrollbar">
           <el-tag
-            :key="tag"
-            v-for="tag in dynamicTags"
-            :closable="tag == '首页' ? false : true"
+            @click="routePath(tag.path)"
+            :key="tag.path"
+            v-for="(tag, index) in cachedViews"
+            :closable="tag.name == '首页' ? false : true"
             disable-transitions
-            @close="handleClose(tag)"
-            effect="plain"
+            @close="handleClose(index)"
+            effect="light"
           >
-            {{ tag }}
+            {{ tag.name }}
           </el-tag>
         </div>
       </div>
@@ -31,15 +32,7 @@
 export default {
   data() {
     return {
-      dynamicTags: [
-        "首页",
-        "标签一",
-        "标签二",
-        "标签一3",
-        "标签二4",
-        "标签一5",
-        "标签二6",
-      ],
+      dynamicTags: [{ name: "首页", path: "/" }],
       inputVisible: false,
       inputValue: "",
       tagWidth: 0,
@@ -53,6 +46,14 @@ export default {
         tagViewsActive: this.isShowIcon,
       };
     },
+    cachedViews() {
+      return this.$store.state.app.cachedViews;
+    },
+  },
+  watch: {
+    $route() {
+      this.addTags();
+    },
   },
   mounted() {
     this.resizeHandler();
@@ -64,6 +65,28 @@ export default {
     observer.unobserve(this.$refs.tagViews);
   },
   methods: {
+    routePath(val) {
+      this.$router.push({ path: val });
+    },
+    addTags() {
+      const { name, path } = this.$route;
+      // console.log("this.$route", this.$route);
+      if (name) {
+        let option = {
+          name: name,
+          path: path,
+        };
+        // getCachedViews.push(option);
+        // console.log("getCachedViews", getCachedViews);
+
+        this.$store.dispatch("app/addCachedViews", option);
+        // this.$store.dispatch('tagsView/addView', this.$route)
+        if (this.$route.meta.link) {
+          // this.$store.dispatch('tagsView/addIframeView', this.$route)
+        }
+      }
+      return false;
+    },
     addTagBtn() {
       // this.dynamicTags.push("teeeeeeeeeeeeeeeeeeeeeeeeeest");
       this.$nextTick(() => {
@@ -113,8 +136,15 @@ export default {
       this.resizeTagWidth = width;
     },
 
-    async handleClose(tag) {
-      this.dynamicTags.splice(this.dynamicTags.indexOf(tag), 1);
+    async handleClose(index) {
+      // this.dynamicTags.splice(this.dynamicTags.indexOf(tag), 1);
+
+      let getCachedViews = JSON.parse(JSON.stringify(this.$store.state.app.cachedViews));
+
+      getCachedViews.splice(index, 1);
+      console.log("getCachedViews", getCachedViews);
+
+      this.$store.commit("app/SET_CACHED_VIEWS", getCachedViews);
 
       setTimeout(() => {
         this.refreshTagWidth();
@@ -123,8 +153,8 @@ export default {
     refreshTagWidth() {
       const elementSec = this.$refs.tagViewsScrollbar;
       this.tagWidth = elementSec.offsetWidth;
-      console.log("this.tagWidth", this.tagWidth);
-      console.log("this.resizeTagWidth", this.resizeTagWidth);
+      // console.log("this.tagWidth", this.tagWidth);
+      // console.log("this.resizeTagWidth", this.resizeTagWidth);
       this.handleWidthChange(this.resizeTagWidth);
     },
 

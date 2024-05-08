@@ -61,7 +61,7 @@ export const constantRoutes = [{
         component: () =>
             import ('@/views/home/home.vue'),
         children: [{
-                name: 'welcome',
+                name: '首页',
                 path: '/welcome',
                 component: () =>
                     import ('@/views/login/welcome.vue')

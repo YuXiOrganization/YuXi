@@ -20,8 +20,8 @@ router.beforeEach((to, from, next) => {
         // 如果在白名单内，则直接放行
         next();
     } else {
-        console.log("getToken", to.path)
-            // 如果不在白名单内且目标路由需要认证
+        // console.log("getToken", to.path)
+        // 如果不在白名单内且目标路由需要认证
         if (getToken) {
             // 如果存在token，则允许进入
 
@@ -30,7 +30,7 @@ router.beforeEach((to, from, next) => {
                     store.dispatch('user/GenerateRoutes').then(accessRoutes => {
                         // 根据roles权限生成可访问的路由表
                         //   router.addRoutes(accessRoutes) // 动态添加可访问路由表
-                        console.log("to", to)
+                        // console.log("to", to)
                         next({...to, replace: true }) // hack方法 确保addRoutes已完成
                             // next();
                     })
