@@ -3,6 +3,7 @@
     <div class="tag-views-tag">
       <div ref="tagViews" class="tag-views-test">
         <div ref="tagViewsScrollbar">
+          <!-- TODO 准备 -->
           <el-tag
             @click="routePath(tag.path)"
             :key="tag.path"
@@ -10,7 +11,7 @@
             :closable="tag.name == '首页' ? false : true"
             disable-transitions
             @close="handleClose(index)"
-            effect="light"
+            :effect="activeMenu == tag.path ? 'light' : 'plain'"
           >
             {{ tag.name }}
           </el-tag>
@@ -38,6 +39,7 @@ export default {
       tagWidth: 0,
       isShowIcon: false,
       resizeTagWidth: 1000,
+      activeMenu: "/",
     };
   },
   computed: {
@@ -70,6 +72,7 @@ export default {
     },
     addTags() {
       const { name, path } = this.$route;
+      this.activeMenu = path;
       // console.log("this.$route", this.$route);
       if (name) {
         let option = {
