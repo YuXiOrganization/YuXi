@@ -35,7 +35,7 @@ export default {
       // isactivePath:flase,
       // 是否可见
       islook: true,
-      cachedViews:['合作商管理']
+      // cachedViews: ["合作商管理"],
     };
   },
   mixins: [ResizeHandler],
@@ -54,13 +54,17 @@ export default {
         mobile: this.device === "mobile",
       };
     },
-    // cachedViews() {
-    //   console.log(
-    //     "this.$store.state.tagsView.cachedViews",
-    //     this.$store.state.app.cachedViews
-    //   );
-    //   return this.$store.state.app.cachedViews;
-    // },
+    cachedViews() {
+      // console.log(
+      //   "this.$store.state.tagsView.cachedViews",
+      //   this.$store.state.app.cachedViews
+      // );
+      let getCachedViews = this.$store.state.app.cachedViews.map((item) => {
+        return item.name;
+      });
+      console.log("getCachedViews", getCachedViews);
+      return getCachedViews;
+    },
   },
 
   created() {

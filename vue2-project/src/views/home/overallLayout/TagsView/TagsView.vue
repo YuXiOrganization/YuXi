@@ -33,7 +33,6 @@
 export default {
   data() {
     return {
-      dynamicTags: [{ name: "首页", path: "/" }],
       inputVisible: false,
       inputValue: "",
       tagWidth: 0,
@@ -58,6 +57,7 @@ export default {
     },
   },
   mounted() {
+    this.addTags();
     this.resizeHandler();
   },
   beforeDestroy() {
@@ -72,6 +72,7 @@ export default {
     },
     addTags() {
       const { name, path } = this.$route;
+      console.log("触发this.$route;", this.$route);
       this.activeMenu = path;
       // console.log("this.$route", this.$route);
       if (name) {
@@ -91,7 +92,6 @@ export default {
       return false;
     },
     addTagBtn() {
-      // this.dynamicTags.push("teeeeeeeeeeeeeeeeeeeeeeeeeest");
       this.$nextTick(() => {
         this.refreshTagWidth();
       });
@@ -140,18 +140,17 @@ export default {
     },
 
     async handleClose(index) {
-      // this.dynamicTags.splice(this.dynamicTags.indexOf(tag), 1);
+      // let getCachedViews = JSON.parse(JSON.stringify(this.$store.state.app.cachedViews));
 
-      let getCachedViews = JSON.parse(JSON.stringify(this.$store.state.app.cachedViews));
+      // getCachedViews.splice(index, 1);
+      // console.log("getCachedViews", getCachedViews);
 
-      getCachedViews.splice(index, 1);
-      console.log("getCachedViews", getCachedViews);
+      const res = await this.$store.dispatch("app/deleteCachedViews", index);
 
-      this.$store.commit("app/SET_CACHED_VIEWS", getCachedViews);
-
-      setTimeout(() => {
+      console.log("res", res);
+      if (res) {
         this.refreshTagWidth();
-      }, 50);
+      }
     },
     refreshTagWidth() {
       const elementSec = this.$refs.tagViewsScrollbar;
@@ -166,15 +165,6 @@ export default {
       this.$nextTick((_) => {
         this.$refs.saveTagInput.$refs.input.focus();
       });
-    },
-
-    handleInputConfirm() {
-      let inputValue = this.inputValue;
-      if (inputValue) {
-        this.dynamicTags.push(inputValue);
-      }
-      this.inputVisible = false;
-      this.inputValue = "";
     },
   },
 };

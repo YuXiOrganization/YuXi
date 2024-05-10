@@ -1,3 +1,4 @@
+import route from '@/router'
 const state = {
     sidebar: {
         opened: sessionStorage.getItem("sidebarStatus") ? sessionStorage.getItem('sidebarStatus') == '1' ? true : false : true,
@@ -89,6 +90,36 @@ const actions = {
         getCachedViews.push(status)
 
         commit('SET_CACHED_VIEWS', getCachedViews)
+    },
+
+    deleteCachedViews({
+        commit,
+        state
+    }, status) {
+        return new Promise((resolve) => {
+            let getCachedViews = state.cachedViews
+            const {
+                path
+            } = route.history.current;
+            let isNowPath = false
+            if (getCachedViews[status].path === path) {
+                isNowPath = true
+            }
+            getCachedViews.splice(status, 1);
+            commit('SET_CACHED_VIEWS', getCachedViews)
+            if (isNowPath) {
+                let getPath = getCachedViews[getCachedViews.length - 1];
+                route.push({
+                    path: getPath.path
+                });
+            }
+
+
+
+            console.log("getCachedViews", getCachedViews)
+            resolve(true)
+        })
+
     }
 }
 
