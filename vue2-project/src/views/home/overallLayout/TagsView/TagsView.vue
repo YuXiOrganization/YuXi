@@ -72,7 +72,7 @@ export default {
     },
     addTags() {
       const { name, path } = this.$route;
-      console.log("触发this.$route;", this.$route);
+      // console.log("触发this.$route;", this.$route);
       this.activeMenu = path;
       // console.log("this.$route", this.$route);
       if (name) {
@@ -147,7 +147,7 @@ export default {
 
       const res = await this.$store.dispatch("app/deleteCachedViews", index);
 
-      console.log("res", res);
+      // console.log("res", res);
       if (res) {
         this.refreshTagWidth();
       }

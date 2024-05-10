@@ -82,11 +82,12 @@ export default {
     activeMenu() {
       const route = this.$route;
       const { meta, path } = route;
-      console.log("route", route);
+      console.log("routepath", route);
       // if set path, the sidebar will highlight the path you set
-      if (meta.activeMenu) {
-        return meta.activeMenu;
+      if (meta.id) {
+        return meta.id;
       }
+      console.log("routepath", path);
       return path;
     },
     showLogo() {
@@ -99,9 +100,9 @@ export default {
       return !this.sidebar.opened;
     },
   },
-  created() {
-    console.log("rightList",this.rightList);
-  },
+  // created() {
+  //   console.log("rightList",this.rightList);
+  // },
   methods: {
     handleOpen(key, keyPath) {
       console.log(key, keyPath);
