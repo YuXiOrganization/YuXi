@@ -39,13 +39,16 @@
         >
       </el-col> -->
       <!-- <right-toolbar :showSearch.sync="showSearch" @queryTable="getList"></right-toolbar> -->
+
+      <roleModal ref="modalForm" @ok="modalFormOk"></roleModal>
     </el-row>
   </CommonPage>
 </template>
 
 <script>
-import {CommonMixin} from "@/mixins/commonMixins.js";
-import CommonPage from "@/components/common/CommonPage.vue";
+import roleModal from "./modules/roleModal.vue";
+import { CommonMixin } from "@/mixins/commonMixins.js";
+
 export default {
   name: "Role",
   mixins: [CommonMixin],
@@ -57,7 +60,7 @@ export default {
     };
   },
   components: {
-    CommonPage,
+    roleModal,
   },
 };
 </script>

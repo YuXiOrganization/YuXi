@@ -79,6 +79,17 @@ const CommonMixin = {
             this.$refs.modalForm.disableSubmit = false;
         },
 
+        modalFormOk() {
+            // 新增/修改 成功时，重载列表
+            this.loadData();
+            //清空列表选中
+            this.onClearSelected()
+        },
+        onClearSelected() {
+            this.selectedRowKeys = [];
+            this.selectionRows = [];
+        },
+
     },
 
 }
