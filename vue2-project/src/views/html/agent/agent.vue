@@ -11,17 +11,16 @@
 </template>
 
 <script>
-import CommonPage from "@/components/common/CommonPage.vue";
+
 export default {
-  name:"合作商管理",
+
+  name:"Agent",
   data() {
     return {
       checkList: ["选中且禁用", "复选框 A"],
     };
   },
-  components: {
-    CommonPage,
-  },
+
 };
 </script>
 <style lang="" scoped></style>

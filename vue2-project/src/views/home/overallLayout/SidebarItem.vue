@@ -2,7 +2,7 @@
   <div v-if="!item.hidden">
     <template v-if="changeBoolean(item)">
       <el-menu-item
-        @click="routePath(item.path)"
+        @click="routePath(item.path,item)"
         :index="item.meta.id"
         :class="{ 'submenu-title-noDropdown': !isNest }"
       >
@@ -48,7 +48,8 @@ export default {
     },
   },
   methods: {
-    routePath(val) {
+    routePath(val,item) {
+      // console.log("item",item)
       this.$router.push({ path: val });
     },
     changeBoolean(val) {

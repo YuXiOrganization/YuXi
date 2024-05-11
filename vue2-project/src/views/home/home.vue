@@ -11,7 +11,7 @@
       <navbar></navbar>
       <!-- v-model="activeName" @tab-click="handleClick" -->
       <TagsView />
-      <keep-alive :include="cachedViews">
+      <keep-alive :max="10" :include="cachedViews">
         <router-view class="main-container-view"></router-view>
       </keep-alive>
     </div>
@@ -35,7 +35,7 @@ export default {
       // isactivePath:flase,
       // 是否可见
       islook: true,
-      // cachedViews: ["合作商管理"],
+      // cachedViews: ["html/agent/agent"],
     };
   },
   mixins: [ResizeHandler],
@@ -55,12 +55,14 @@ export default {
       };
     },
     cachedViews() {
-      // console.log(
-      //   "this.$store.state.tagsView.cachedViews",
-      //   this.$store.state.app.cachedViews
-      // );
       let getCachedViews = this.$store.state.app.cachedViews.map((item) => {
-        return item.name;
+        // TODO keep-alive缓存方法
+        let getPath = item.path
+          .split("/")
+          .pop()
+          .replace(/^\w/, (c) => c.toUpperCase());
+
+        return getPath;
       });
       console.log("getCachedViews", getCachedViews);
       return getCachedViews;

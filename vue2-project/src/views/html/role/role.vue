@@ -1,23 +1,59 @@
 <template>
   <CommonPage>
-    系统角色权限
-    <el-checkbox-group v-model="checkList">
-      <el-checkbox label="复选框 A"></el-checkbox>
-      <el-checkbox label="复选框 B"></el-checkbox>
-      <el-checkbox label="复选框 C"></el-checkbox>
-      <el-checkbox label="禁用" disabled></el-checkbox>
-      <el-checkbox label="选中且禁用" disabled></el-checkbox>
-    </el-checkbox-group>
+    <el-row :gutter="10" class="mb8">
+      <el-col :span="1.5">
+        <el-button type="primary" plain icon="el-icon-plus" size="mini" @click="handleAdd"
+          >新增</el-button
+        >
+      </el-col>
+      <!-- <el-col :span="1.5">
+        <el-button
+          type="success"
+          plain
+          icon="el-icon-edit"
+          size="mini"
+          :disabled="single"
+          @click="handleUpdate"
+          >修改</el-button
+        >
+      </el-col>
+      <el-col :span="1.5">
+        <el-button
+          type="danger"
+          plain
+          icon="el-icon-delete"
+          size="mini"
+          :disabled="multiple"
+          @click="handleDelete"
+          >删除</el-button
+        >
+      </el-col>
+      <el-col :span="1.5">
+        <el-button
+          type="warning"
+          plain
+          icon="el-icon-download"
+          size="mini"
+          @click="handleExport"
+          >导出</el-button
+        >
+      </el-col> -->
+      <!-- <right-toolbar :showSearch.sync="showSearch" @queryTable="getList"></right-toolbar> -->
+    </el-row>
   </CommonPage>
 </template>
 
 <script>
+import {CommonMixin} from "@/mixins/commonMixins.js";
 import CommonPage from "@/components/common/CommonPage.vue";
 export default {
-  name: "系统角色权限管理",
+  name: "Role",
+  mixins: [CommonMixin],
   data() {
     return {
-      checkList: ["选中且禁用", "复选框 A"],
+      url: {
+        list: "/pmPlan/pmPlanNode/list",
+      },
     };
   },
   components: {
@@ -25,4 +61,4 @@ export default {
   },
 };
 </script>
-<style lang="" scoped></style>
+<style lang="scss" scoped></style>

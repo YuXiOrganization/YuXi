@@ -9,8 +9,11 @@ import '@/router/routerGuard'
 
 import ElementUI from 'element-ui';
 import 'element-ui/lib/theme-chalk/index.css';
-
 Vue.use(ElementUI);
+
+import CommonPage from "@/components/common/CommonPage.vue";
+// 创建Vue应用实例之前，使用Vue.component()方法注册全局组件
+Vue.component('CommonPage', CommonPage);
 
 Vue.config.productionTip = false
 

@@ -24,7 +24,8 @@
           <el-input
             popper-class="my-autocomplete"
             v-model="formdata.verify_code"
-            placeholder="请输入内容"
+            placeholder="请输入验证码"
+            @keyup.enter.native="getlogin"
           >
             <!-- <i class="el-icon-edit el-input__icon" slot="suffix"> </i> -->
 
