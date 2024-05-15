@@ -11,9 +11,11 @@
       <navbar></navbar>
       <!-- v-model="activeName" @tab-click="handleClick" -->
       <TagsView />
-      <keep-alive :max="10" :include="cachedViews">
-        <router-view class="main-container-view"></router-view>
-      </keep-alive>
+      <transition name="fade" mode="out-in" appear>
+        <keep-alive :max="10" :include="cachedViews">
+          <router-view v-if="!$route.meta.link" :key="key"></router-view>
+        </keep-alive>
+      </transition>
     </div>
   </div>
 </template>
@@ -45,6 +47,9 @@ export default {
     TagsView,
   },
   computed: {
+    key() {
+      return this.$route.path;
+    },
     ...mapGetters(["sidebar", "device"]),
     classObj() {
       return {
@@ -64,7 +69,7 @@ export default {
 
         return getPath;
       });
-      console.log("getCachedViews", getCachedViews);
+      // console.log("getCachedViews", getCachedViews);
       return getCachedViews;
     },
   },
@@ -148,6 +153,21 @@ export default {
   position: relative;
   height: 100%;
   width: 100%;
+
+  .fade-enter-active,
+  .fade-leave-active {
+    transition: opacity 0.5s ease, transform 0.5s;
+    // transition: opacity 0.5s;
+  }
+  .fade-enter {
+    opacity: 0;
+    transform: translateX(-30px);
+  }
+  /* .fade-leave-active below version 2.1.8 */
+  .fade-leave-to {
+    opacity: 0;
+    transform: translateX(30px);
+  }
 }
 
 .drawer-bg {

@@ -176,6 +176,7 @@ export default {
   // white-space: nowrap;
   position: relative;
   height: 50px;
+  min-height: 50px;
 
   display: flex;
   align-items: center;
