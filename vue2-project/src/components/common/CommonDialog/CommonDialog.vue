@@ -7,8 +7,8 @@
   >
     <slot></slot>
     <span slot="footer" class="dialog-footer">
-      <el-button @click="handleOk">取 消</el-button>
-      <el-button type="primary" @click="handleCancel">确 定</el-button>
+      <el-button @click="handleCancel">取 消</el-button>
+      <el-button type="primary" @click="handleOk">确 定</el-button>
     </span>
   </el-dialog>
 </template>
@@ -48,9 +48,10 @@ export default {
     },
 
     handleOk() {
-      if (this.okClose) {
-        this.close();
-      }
+      // if (this.okClose) {
+      //   this.close();
+      // }
+      this.$emit("ok")
     },
     handleCancel() {
       this.close();

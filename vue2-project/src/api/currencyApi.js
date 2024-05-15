@@ -64,6 +64,9 @@ const httpAction = (url, parameter, method) => {
         url: url,
         method: method,
         data: parameter,
+        headers: {
+            "Content-Type": 'multipart/form-data'
+        }
         //   headers: signHeader
     })
 }

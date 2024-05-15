@@ -9,11 +9,12 @@
     @ok="handleOk"
     @cancel="handleCancel"
   >
-    内容
+    <roleForm ref="realForm" @ok="submitCallback" :disabled="disableSubmit"/>
   </CommonDialog>
 </template>
 
 <script>
+import roleForm from './roleForm.vue'
 import CommonDialog from "@/components/common/CommonDialog/CommonDialog.vue";
 export default {
   data() {
@@ -26,6 +27,7 @@ export default {
   },
   components: {
     CommonDialog,
+    roleForm
   },
   methods: {
     add() {

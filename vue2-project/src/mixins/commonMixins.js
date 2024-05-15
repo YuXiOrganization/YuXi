@@ -2,7 +2,9 @@ import {
     filterObj
 } from '@/utils/collectionMethods/objectMethods.js'
 
-
+import {
+    getAction
+} from '@/api/currencyApi'
 
 const CommonMixin = {
     data() {
@@ -32,36 +34,51 @@ const CommonMixin = {
 
         }
     },
-    created() {},
+    created() {
+
+        this.loadData();
+
+    },
     computed: {},
     methods: {
-        loadData(arg) {
+        handleSelectionChange(val) {
+            console.log("选中数据", val);
+
+        },
+        handleSizeChange(val) {
+            // console.log(`每页 ${val} 条`);
+            this.ipagination.pageSize = val
+        },
+        handleCurrentChange(val) {
+            this.ipagination.current = val
+                // console.log(`当前页: ${val}`);
+        },
+        async loadData(arg) {
             if (!this.url.list) {
                 this.$message.error("请设置url.list属性!")
                 return
             }
-            //加载数据 若传入参数1则加载第一页的内容
-            if (arg === 1) {
-                this.ipagination.current = 1;
-            }
-            var params = this.getQueryParams(); //查询条件
-            this.loading = true;
-            getAction(this.url.list, params).then((res) => {
+            try {
+                //加载数据 若传入参数1则加载第一页的内容
+                if (arg === 1) {
+                    this.ipagination.current = 1;
+                }
+                var params = this.getQueryParams(); //查询条件
+                this.loading = true;
+                const res = await getAction(this.url.list, params)
                 if (res.success) {
                     //update-begin---author:zhangyafei    Date:20201118  for：适配不分页的数据列表------------
-                    this.dataSource = res.result.records || res.result;
-                    if (res.result.total) {
-                        this.ipagination.total = res.result.total;
-                    } else {
-                        this.ipagination.total = 0;
-                    }
-                    //update-end---author:zhangyafei    Date:20201118  for：适配不分页的数据列表------------
+                    this.dataSource = res.list
+                    this.ipagination.total = res.total ? res.total : 0
+                        //update-end---author:zhangyafei    Date:20201118  for：适配不分页的数据列表------------
                 } else {
-                    this.$message.warning(res.message)
+                    this.$message.warning(res.msg)
                 }
-            }).finally(() => {
                 this.loading = false
-            })
+            } catch (error) {
+                this.loading = false
+            }
+
         },
         getQueryParams() {
             //获取查询条件
@@ -76,6 +93,11 @@ const CommonMixin = {
         handleAdd() {
             this.$refs.modalForm.add();
             this.$refs.modalForm.title = "新增";
+            this.$refs.modalForm.disableSubmit = false;
+        },
+        handleEdit(record) {
+            this.$refs.modalForm.edit(record);
+            this.$refs.modalForm.title = "编辑";
             this.$refs.modalForm.disableSubmit = false;
         },
 

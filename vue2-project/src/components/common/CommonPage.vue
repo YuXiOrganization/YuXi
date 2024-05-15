@@ -22,10 +22,14 @@ export default {
 <style lang="scss" scoped>
 .common-page {
   width: 100%;
+  height: 100%;
   background-color: #f5f6fb;
   display: flex;
   .common-page-card {
+    width: 100%;
+    // height: 100%;
     display: flex;
+    // flex-direction: column;
     flex: auto;
     margin: 12px;
     border-radius: 8px;
