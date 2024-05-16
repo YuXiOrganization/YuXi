@@ -1,9 +1,10 @@
 <template>
   <el-dialog
     :title="title"
-    :visible.sync="visible"
+    :visible="visible"
     :width="width"
     :fullscreen="fullscreen"
+    @close="handleCancel"
   >
     <slot></slot>
     <span slot="footer" class="dialog-footer">
@@ -42,19 +43,11 @@ export default {
   },
 
   methods: {
-    close() {
-      //update:visible 表示子组件想要更新父组件中名为 visible 的属性。
-      this.$emit("update:visible", false);
-    },
-
     handleOk() {
-      // if (this.okClose) {
-      //   this.close();
-      // }
-      this.$emit("ok")
+      this.$emit("ok");
     },
     handleCancel() {
-      this.close();
+      this.$emit("cancel");
     },
   },
 };

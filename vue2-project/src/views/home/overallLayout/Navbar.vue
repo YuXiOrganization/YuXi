@@ -80,9 +80,10 @@ export default {
       })
         .then(() => {
           // console.log(" this.$store", this.$store);
-          this.$store.dispatch("user/LogOut").then(() => {
-            location.href = "/login";
-          });
+          this.$store.dispatch("user/LogOut")
+          // .then(() => {
+          //   location.href = "/login";
+          // });
         })
         .catch(() => {});
     },

@@ -31,16 +31,20 @@ router.beforeEach((to, from, next) => {
                         // 根据roles权限生成可访问的路由表
                         //   router.addRoutes(accessRoutes) // 动态添加可访问路由表
                         // console.log("to", to)
-                        next({...to, replace: true }) // hack方法 确保addRoutes已完成
+                        next({
+                                ...to,
+                                replace: true
+                            }) // hack方法 确保addRoutes已完成
                             // next();
                     })
                 }).catch(err => {
-                    store.dispatch('user/LogOut').then(() => {
-                        Message.error(err)
-                        next({
-                            path: '/'
-                        })
-                    })
+                    store.dispatch('user/LogOut')
+                        // .then(() => {
+                    Message.error(err)
+                        //     next({
+                        //         path: '/'
+                        //     })
+                        // })
                 })
 
             } else {

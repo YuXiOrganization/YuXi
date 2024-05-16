@@ -53,6 +53,37 @@
             <p v-else>--</p>
           </template>
         </el-table-column>
+
+        <el-table-column align="center" label="操作" width="140" fixed="right">
+          <template slot-scope="scope, record">
+            <el-row class="block-col-2">
+              <el-col>
+                <el-dropdown trigger="click">
+                  <span class="el-dropdown-link">
+                    操作菜单<i class="el-icon-arrow-down el-icon--left"></i>
+                  </span>
+                  <el-dropdown-menu slot="dropdown" class="btn">
+                    <el-dropdown-item>
+                      <el-button type="warning" size="medium" @click="handleEdit(record)"
+                        >修改
+                      </el-button>
+                    </el-dropdown-item>
+                    <el-dropdown-item>
+                      <el-button type="danger" size="medium" @click="handleDelete(record.id)"
+                        >删除
+                      </el-button>
+                    </el-dropdown-item>
+                    <el-dropdown-item>
+                      <el-button type="primary" size="medium" @click="setAuth(record)"
+                        >配置权限
+                      </el-button>
+                    </el-dropdown-item>
+                  </el-dropdown-menu>
+                </el-dropdown>
+              </el-col>
+            </el-row>
+          </template>
+        </el-table-column>
       </el-table>
     </div>
     <el-pagination

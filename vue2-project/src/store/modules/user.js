@@ -7,6 +7,9 @@ import {
     handleTree
 } from '@/utils/collectionMethods/arrayMethods'
 import router from '@/router'
+import {
+    Message
+} from 'element-ui'
 const user = {
     namespaced: true,
     state: {
@@ -52,6 +55,12 @@ const user = {
         }) {
             return new Promise((resolve, reject) => {
                 localStorage.removeItem("token");
+
+                // Message.error(err)
+                router.replace({
+                    path: '/'
+                })
+
                 resolve()
             })
         },
@@ -63,8 +72,13 @@ const user = {
             return new Promise(async(resolve, reject) => {
                 try {
                     const getAdmin = await getAction("/queryAdmin")
-                    commit('SET_USER_LIST', getAdmin.data)
-                    resolve()
+                    if (getAdmin.success) {
+                        commit('SET_USER_LIST', getAdmin.data)
+                        resolve()
+                    } else {
+                        LogOut()
+                    }
+
                 } catch (error) {
                     reject(error)
                 }

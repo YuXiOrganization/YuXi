@@ -26,7 +26,9 @@ const formMixins = {
         },
     },
     methods: {
-        add() {},
+        add() {
+            this.$refs.form.resetFields();
+        },
         edit(record) {
             this.$refs.form.resetFields();
             this.model = Object.assign({}, record);

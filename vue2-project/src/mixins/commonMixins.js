@@ -3,7 +3,8 @@ import {
 } from '@/utils/collectionMethods/objectMethods.js'
 
 import {
-    getAction
+    getAction,
+    postAction
 } from '@/api/currencyApi'
 
 const CommonMixin = {
@@ -99,6 +100,27 @@ const CommonMixin = {
             this.$refs.modalForm.edit(record);
             this.$refs.modalForm.title = "编辑";
             this.$refs.modalForm.disableSubmit = false;
+        },
+        async handleDelete(id) {
+            if (!this.url.delete) {
+                this.$message.error("请设置url.delete属性!")
+                return
+            }
+            try {
+                //加载数据 若传入参数1则加载第一页的内容
+                const res = await postAction(this.url.delete, {
+                    id: id
+                })
+                if (res.success) {
+                    //update-begin---author:zhangyafei    Date:20201118  for：适配不分页的数据列表------------
+                    this.$message.success(res.msg);
+                    this.loadData();
+                } else {
+                    this.$message.warning(res.msg)
+                }
+            } catch (error) {
+
+            }
         },
 
         modalFormOk() {
