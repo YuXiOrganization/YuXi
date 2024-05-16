@@ -4,7 +4,7 @@ import {
 
 import {
     getAction,
-    postAction
+    postFormAction
 } from '@/api/currencyApi'
 
 const CommonMixin = {
@@ -97,9 +97,28 @@ const CommonMixin = {
             this.$refs.modalForm.disableSubmit = false;
         },
         handleEdit(record) {
+            // console.log("handleEdit", record)
             this.$refs.modalForm.edit(record);
             this.$refs.modalForm.title = "编辑";
             this.$refs.modalForm.disableSubmit = false;
+        },
+        isDeleteFun() {
+            return new Promise((resolve) => {
+                this.$confirm('确认删除吗？', '删除', {
+                    confirmButtonText: '确定',
+                    cancelButtonText: '取消',
+                    type: 'warning'
+                }).then(() => {
+                    resolve(true)
+                }).catch(() => {
+                    resolve(false)
+                    this.$message({
+                        type: 'info',
+                        message: '已取消删除'
+                    });
+                });
+            })
+
         },
         async handleDelete(id) {
             if (!this.url.delete) {
@@ -107,8 +126,13 @@ const CommonMixin = {
                 return
             }
             try {
+
+                const isDel = await this.isDeleteFun()
+                if (!isDel) {
+                    return
+                }
                 //加载数据 若传入参数1则加载第一页的内容
-                const res = await postAction(this.url.delete, {
+                const res = await postFormAction(this.url.delete, {
                     id: id
                 })
                 if (res.success) {
@@ -119,7 +143,7 @@ const CommonMixin = {
                     this.$message.warning(res.msg)
                 }
             } catch (error) {
-
+                console.log("err", error)
             }
         },
 

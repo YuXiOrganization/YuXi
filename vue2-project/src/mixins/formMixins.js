@@ -31,7 +31,8 @@ const formMixins = {
         },
         edit(record) {
             this.$refs.form.resetFields();
-            this.model = Object.assign({}, record);
+            // console.log(",record", record)
+            this.formModel = Object.assign({}, record);
         },
         /** 关闭弹窗，并将所有JEditableTable实例回归到初始状态 */
         close() {

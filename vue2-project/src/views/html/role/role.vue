@@ -62,19 +62,25 @@
                   <span class="el-dropdown-link">
                     操作菜单<i class="el-icon-arrow-down el-icon--left"></i>
                   </span>
-                  <el-dropdown-menu slot="dropdown" class="btn">
+                  <el-dropdown-menu slot="dropdown">
                     <el-dropdown-item>
-                      <el-button type="warning" size="medium" @click="handleEdit(record)"
+                      <el-button
+                        type="warning"
+                        size="medium"
+                        @click="handleEdit(scope.row)"
                         >修改
                       </el-button>
                     </el-dropdown-item>
                     <el-dropdown-item>
-                      <el-button type="danger" size="medium" @click="handleDelete(record.id)"
+                      <el-button
+                        type="danger"
+                        size="medium"
+                        @click="handleDelete(scope.row.id)"
                         >删除
                       </el-button>
                     </el-dropdown-item>
                     <el-dropdown-item>
-                      <el-button type="primary" size="medium" @click="setAuth(record)"
+                      <el-button type="primary" size="medium" @click="setAuth(scope.row)"
                         >配置权限
                       </el-button>
                     </el-dropdown-item>
@@ -96,14 +102,15 @@
       :total="ipagination.total"
     >
     </el-pagination>
-
-    <roleModal ref="modalForm" @ok="modalFormOk"></roleModal>
+    <roleAuthModal ref="roleAuthModal" @ok="modalFormOk"></roleAuthModal>
+    <roleModal ref="modalForm"></roleModal>
   </CommonPage>
 </template>
 
 <script>
 import { gettime } from "@/utils/collectionMethods/timeMethods.js";
 import roleModal from "./modules/roleModal.vue";
+import roleAuthModal from "./modules/roleAuthModal.vue";
 import { CommonMixin } from "@/mixins/commonMixins.js";
 
 export default {
@@ -113,6 +120,7 @@ export default {
     return {
       url: {
         list: "/role/queryList",
+        delete: "/role/deleteEntity",
       },
       getResizeObserver: 0,
       tableData: [],
@@ -121,9 +129,16 @@ export default {
 
   components: {
     roleModal,
+    roleAuthModal,
   },
 
   methods: {
+    setAuth(record) {
+      this.$refs.roleAuthModal.edit(record);
+      this.$refs.roleAuthModal.title = "编辑";
+      this.$refs.roleAuthModal.disableSubmit = false;
+    },
+
     gettime(val) {
       return gettime(val);
     },
@@ -131,11 +146,14 @@ export default {
 };
 </script>
 <style lang="scss" scoped>
+::v-deep(.el-dropdown-menu__item) {
+  margin: 5px !important;
+}
 .table-class {
   width: 100%;
   padding: 20px 0;
-  // height: 100%;
-  // display: flex;
-  // flex: auto;
+  .el-dropdown-link {
+    cursor: pointer;
+  }
 }
 </style>

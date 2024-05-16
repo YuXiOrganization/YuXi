@@ -26,6 +26,9 @@ export default {
   mixins: [formMixins],
   data() {
     return {
+      formModel: {
+        role_name: "",
+      },
       validatorRules: {
         role_name: [
           {
@@ -49,7 +52,19 @@ export default {
     };
   },
 
-  methods: {},
+  methods: {
+    edit(record) {
+      this.$refs.form.resetFields();
+      // console.log(",record", record)
+      const { id, role_name } = record;
+      let option = {
+        id: id,
+        role_name: role_name,
+      };
+      this.formModel = option;
+      //  Object.assign({}, record);
+    },
+  },
 };
 </script>
 <style lang="scss" scoped></style>
