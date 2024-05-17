@@ -102,8 +102,8 @@
       :total="ipagination.total"
     >
     </el-pagination>
-    <roleAuthModal ref="roleAuthModal" @ok="modalFormOk"></roleAuthModal>
-    <roleModal ref="modalForm"></roleModal>
+    <roleAuthModal ref="roleAuthModal"></roleAuthModal>
+    <roleModal ref="modalForm" @ok="modalFormOk"></roleModal>
   </CommonPage>
 </template>
 

@@ -6,7 +6,9 @@
     :fullscreen="fullscreen"
     @close="handleCancel"
   >
-    <slot></slot>
+    <div class="dialog-context">
+      <slot></slot>
+    </div>
     <span slot="footer" class="dialog-footer">
       <el-button @click="handleCancel">取 消</el-button>
       <el-button type="primary" @click="handleOk">确 定</el-button>
@@ -52,4 +54,9 @@ export default {
   },
 };
 </script>
-<style lang="" scoped></style>
+<style lang="scss" scoped>
+.dialog-context {
+  max-height: 500px;
+  overflow-y: auto;
+}
+</style>

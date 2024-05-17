@@ -9,25 +9,25 @@
     @ok="handleOk"
     @cancel="handleCancel"
   >
-    <roleForm ref="realForm" @ok="submitCallback" :disabled="disableSubmit"/>
+    <roleForm ref="realForm" @ok="submitCallback" :disabled="disableSubmit" />
   </CommonDialog>
 </template>
 
 <script>
-import roleForm from './roleForm.vue'
+import roleForm from "./roleForm.vue";
 import CommonDialog from "@/components/common/CommonDialog/CommonDialog.vue";
 export default {
   data() {
     return {
       title: "",
-      width: '800',
+      width: "800",
       visible: false,
       disableSubmit: false,
     };
   },
   components: {
     CommonDialog,
-    roleForm
+    roleForm,
   },
   methods: {
     add() {
@@ -50,6 +50,7 @@ export default {
       this.$refs.realForm.handleOk();
     },
     submitCallback() {
+    
       this.$emit("ok");
       this.visible = false;
     },

@@ -14,7 +14,7 @@
       ref="tree"
       show-checkbox
       node-key="id"
-      default-expand-all="true"
+      default-expand-all
       :default-checked-keys="checked_auth_list"
     >
     </el-tree>
@@ -35,8 +35,10 @@ export default {
       checked_auth_list: [],
       url: {
         authByRoleId: "/role/queryAuthByRoleId",
-        queryAllAuth: "role/queryAllAuth",
+        queryAllAuth: "/role/queryAllAuth",
+        updateAuth: "/role/updateAuth",
       },
+      transferParameter: null,
     };
   },
   components: {
@@ -50,6 +52,7 @@ export default {
       });
     },
     async edit(record) {
+      this.transferParameter = record;
       await this.queryAllAuth();
       await this.queryAuthByRoleId(record.id);
       this.visible = true;
@@ -62,7 +65,7 @@ export default {
       this.visible = false;
     },
     handleOk() {
-      this.$refs.realForm.handleOk();
+      this.updateAuth();
     },
     submitCallback() {
       this.$emit("ok");
@@ -71,12 +74,38 @@ export default {
     handleCancel() {
       this.close();
     },
+    async updateAuth() {
+      try {
+        let checkedNodes = this.$refs.tree.getCheckedNodes();
+
+        let handleIds = checkedNodes
+          .map((item) => {
+            return item.id;
+          })
+          .join(",");
+
+        let option = {
+          handle_ids: handleIds,
+          roleId: this.transferParameter.id,
+        };
+        //加载数据 若传入参数1则加载第一页的内容
+        const res = await postFormAction(this.url.updateAuth, option);
+        if (res.success) {
+          //update-begin---author:zhangyafei    Date:20201118  for：适配不分页的数据列表------------
+          this.close();
+          this.$message.success(res.msg);
+        } else {
+          this.$message.warning(res.msg);
+        }
+      } catch (error) {
+        console.log("err", error);
+      }
+    },
     async queryAllAuth() {
       try {
         //加载数据 若传入参数1则加载第一页的内容
         const res = await postFormAction(this.url.queryAllAuth);
         if (res.success) {
-          //update-begin---author:zhangyafei    Date:20201118  for：适配不分页的数据列表------------
           this.auth_list = res.data;
         } else {
           this.$message.warning(res.msg);
@@ -92,8 +121,13 @@ export default {
           roleId: roleid,
         });
         if (res.success) {
-          //update-begin---author:zhangyafei    Date:20201118  for：适配不分页的数据列表------------
           this.checked_auth_list = res.data;
+          this.$nextTick(() => {
+            // 手动设置已选中的keys
+            if (this.$refs.tree) {
+              this.$refs.tree.setCheckedKeys(this.checked_auth_list);
+            }
+          });
         } else {
           this.$message.warning(res.msg);
         }

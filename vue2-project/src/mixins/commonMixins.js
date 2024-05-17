@@ -149,7 +149,7 @@ const CommonMixin = {
 
         modalFormOk() {
             // 新增/修改 成功时，重载列表
-            this.loadData();
+            this.loadData(1);
             //清空列表选中
             this.onClearSelected()
         },
