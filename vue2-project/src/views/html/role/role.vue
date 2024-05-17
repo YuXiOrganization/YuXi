@@ -92,16 +92,19 @@
         </el-table-column>
       </el-table>
     </div>
-    <el-pagination
-      @size-change="handleSizeChange"
-      @current-change="handleCurrentChange"
-      :current-page="ipagination.current"
-      :page-sizes="[15, 20, 30, 40, 50, 100]"
-      :page-size="ipagination.pageSize"
-      layout="total, sizes, prev, pager, next, jumper"
-      :total="ipagination.total"
-    >
-    </el-pagination>
+    <div class="pagination-class">
+      <div></div>
+      <el-pagination
+        @size-change="handleSizeChange"
+        @current-change="handleCurrentChange"
+        :current-page="ipagination.current"
+        :page-sizes="[15, 20, 30, 40, 50, 100]"
+        :page-size="ipagination.pageSize"
+        layout="total, sizes, prev, pager, next, jumper"
+        :total="ipagination.total"
+      >
+      </el-pagination>
+    </div>
     <roleAuthModal ref="roleAuthModal"></roleAuthModal>
     <roleModal ref="modalForm" @ok="modalFormOk"></roleModal>
   </CommonPage>
@@ -148,6 +151,12 @@ export default {
 <style lang="scss" scoped>
 ::v-deep(.el-dropdown-menu__item) {
   margin: 5px !important;
+}
+.pagination-class {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
 .table-class {
   width: 100%;

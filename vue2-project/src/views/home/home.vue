@@ -11,11 +11,13 @@
       <navbar></navbar>
       <!-- v-model="activeName" @tab-click="handleClick" -->
       <TagsView />
-      <transition name="fade" mode="out-in" appear>
-        <keep-alive :max="10" :include="cachedViews">
-          <router-view v-if="!$route.meta.link" :key="key"></router-view>
-        </keep-alive>
-      </transition>
+      <div class="main-container-page">
+        <transition name="fade" mode="out-in" appear>
+          <keep-alive :include="cachedViews">
+            <router-view v-if="!$route.meta.link" :key="key"></router-view>
+          </keep-alive>
+        </transition>
+      </div>
     </div>
   </div>
 </template>
@@ -69,7 +71,8 @@ export default {
 
         return getPath;
       });
-      // console.log("getCachedViews", getCachedViews);
+      
+      console.log("getCachedViews", getCachedViews);
       return getCachedViews;
     },
   },
@@ -133,6 +136,10 @@ export default {
 };
 </script>
 <style scoped lang="scss">
+.main-container-page {
+  display: flex;
+  flex-direction: row;
+}
 .test-color {
   color: #5a5e66;
 }
@@ -153,7 +160,7 @@ export default {
   position: relative;
   height: 100%;
   width: 100%;
-
+  .fade-transform--move,
   .fade-enter-active,
   .fade-leave-active {
     transition: opacity 0.5s ease, transform 0.5s;

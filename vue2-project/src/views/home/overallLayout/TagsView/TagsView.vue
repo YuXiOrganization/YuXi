@@ -52,12 +52,13 @@ export default {
     },
   },
   watch: {
-    $route() {
+    $route(val) {
+      // console.log("val", val);
       this.addTags();
     },
   },
   mounted() {
-    this.addTags();
+    // this.addTags();
     this.resizeHandler();
   },
   beforeDestroy() {
@@ -69,6 +70,9 @@ export default {
   methods: {
     routePath(val) {
       this.$router.push({ path: val });
+      // .then(() => {
+      //   this.addTags();
+      // });
     },
     addTags() {
       const { name, path } = this.$route;
@@ -81,7 +85,7 @@ export default {
           path: path,
         };
         // getCachedViews.push(option);
-        // console.log("getCachedViews", getCachedViews);
+        console.log("option", option);
 
         this.$store.dispatch("app/addCachedViews", option);
         // this.$store.dispatch('tagsView/addView', this.$route)

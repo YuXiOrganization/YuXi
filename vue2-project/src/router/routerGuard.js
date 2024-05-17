@@ -36,6 +36,7 @@ router.beforeEach((to, from, next) => {
                                 replace: true
                             }) // hack方法 确保addRoutes已完成
                             // next();
+                            // console.log("路由经过")
                     })
                 }).catch(err => {
                     store.dispatch('user/LogOut')
@@ -49,6 +50,7 @@ router.beforeEach((to, from, next) => {
 
             } else {
                 next();
+                console.log("路由经过")
             }
 
 

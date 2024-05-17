@@ -88,6 +88,7 @@ const actions = {
 
         let getCachedViews = state.cachedViews
         getCachedViews.push(status)
+        console.log("addCachedViews", getCachedViews)
 
         commit('SET_CACHED_VIEWS', getCachedViews)
     },
@@ -116,7 +117,7 @@ const actions = {
 
 
 
-            console.log("getCachedViews", getCachedViews)
+            console.log("deleteCachedViews", getCachedViews)
             resolve(true)
         })
 
