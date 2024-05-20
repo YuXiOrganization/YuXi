@@ -10,7 +10,7 @@ NProgress.configure({
     showSpinner: false
 })
 const whiteList = ['/login', '/register']
-router.beforeEach((to, from, next) => {
+router.beforeEach(async(to, from, next) => {
     NProgress.start()
     const getToken = localStorage.getItem("token") || null
         // 获取token，这里假设存储在localStorage中
@@ -24,6 +24,12 @@ router.beforeEach((to, from, next) => {
         // 如果不在白名单内且目标路由需要认证
         if (getToken) {
             // 如果存在token，则允许进入
+            // console.log("路由经过", to)
+            //获取当前页面权限
+            if (to.meta.authCode) {
+                await store.dispatch('user/GetQueryAuthByCode', to.meta.authCode)
+            }
+
 
             if (!store.getters.userList) {
                 store.dispatch('user/GetInfo').then(() => {
@@ -50,7 +56,7 @@ router.beforeEach((to, from, next) => {
 
             } else {
                 next();
-                console.log("路由经过")
+
             }
 
 

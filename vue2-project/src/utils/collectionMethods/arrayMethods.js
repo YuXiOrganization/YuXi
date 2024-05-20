@@ -38,7 +38,7 @@ const handleTreeChildren = (arrays) => {
                 // TODO  该项目的特殊处理
                 let geturl = item.url ? item.url.substring(0, item.url.lastIndexOf('.')) : ''
 
-                // console.log("geturl", geturl)
+                // console.log("getitemitemurl", item)
                 // console.log("geturl", loadView(geturl))
                 let option = {
                     name: item.text,
@@ -52,6 +52,7 @@ const handleTreeChildren = (arrays) => {
                         icon: "el-icon-s-tools",
                         noCache: false,
                         link: null,
+                        authCode: item.authCode ? item.authCode : ""
                     },
                     children: handleTreeChildren(item.children || null)
                 }

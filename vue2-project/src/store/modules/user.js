@@ -15,7 +15,9 @@ const user = {
     state: {
         token: localStorage.getItem("token") || null,
         rightList: JSON.parse(localStorage.getItem("rightList")) || null,
-        userList: null
+        userList: null,
+        permissions: null,
+        authCode: null
     },
     mutations: {
         SET_TOKEN: (state, status) => {
@@ -29,8 +31,50 @@ const user = {
         SET_USER_LIST: (state, status) => {
             state.userList = status
         },
+        SET_PERMISSIONS: (state, status) => {
+            state.permissions = status
+        },
+        SET_AUTH_CODE: (state, status) => {
+            state.authCode = status
+        },
     },
     actions: {
+        // 获取用户权限
+        // role/queryAuthByCode
+        GetQueryAuthByCode({
+            commit,
+            state
+        }, data) {
+            return new Promise(async(resolve, reject) => {
+                try {
+                    console.log("state.authCode", state.authCode + "===" + data)
+                    if (state.authCode == data) {
+                        resolve(state.permissions)
+                    } else {
+                        const res = await postFormAction("/role/queryAuthByCode", {
+                            auth_code: data
+                        })
+
+                        console.log("获取resqueryAuthByCode", res)
+                        if (res.success) {
+                            let getAuth_code = res.data.map((item) => {
+                                return item.auth_code
+                            })
+
+                            commit('SET_AUTH_CODE', data)
+                            commit('SET_PERMISSIONS', getAuth_code)
+                            resolve(getAuth_code)
+
+
+                        } else {
+                            LogOut()
+                        }
+                    }
+                } catch (error) {
+                    reject(error)
+                }
+            })
+        },
         // 登录
         Login({
             commit

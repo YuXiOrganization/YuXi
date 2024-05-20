@@ -11,13 +11,14 @@
       <navbar></navbar>
       <!-- v-model="activeName" @tab-click="handleClick" -->
       <TagsView />
-      <div class="main-container-page">
-        <transition name="fade" mode="out-in" appear>
-          <keep-alive :include="cachedViews">
-            <router-view v-if="!$route.meta.link" :key="key"></router-view>
-          </keep-alive>
-        </transition>
-      </div>
+      <!-- <div class="main-container-page"> -->
+      <transition name="fade" mode="out-in" appear>
+        <!-- :include="cachedViews" -->
+        <keep-alive >
+          <router-view v-if="!$route.meta.link" :key="key"></router-view>
+        </keep-alive>
+      </transition>
+      <!-- </div> -->
     </div>
   </div>
 </template>
@@ -64,15 +65,16 @@ export default {
     cachedViews() {
       let getCachedViews = this.$store.state.app.cachedViews.map((item) => {
         // TODO keep-alive缓存方法
-        let getPath = item.path
-          .split("/")
-          .pop()
-          .replace(/^\w/, (c) => c.toUpperCase());
+        if (!item.type) {
+          let getPath = item.path
+            .split("/")
+            .pop()
+            .replace(/^\w/, (c) => c.toUpperCase());
 
-        return getPath;
-      });
-      
-      console.log("getCachedViews", getCachedViews);
+          return getPath;
+        }
+      }).filter(Boolean);
+      // console.log("getCachedViews", getCachedViews);
       return getCachedViews;
     },
   },

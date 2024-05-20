@@ -2,7 +2,13 @@
   <CommonPage>
     <el-row :gutter="10" class="mb8">
       <el-col :span="1.5">
-        <el-button type="primary" plain icon="el-icon-plus" size="mini" @click="handleAdd"
+        <el-button
+          v-hasPermi="['AU0902', 'AU090202']"
+          type="primary"
+          plain
+          icon="el-icon-plus"
+          size="mini"
+          @click="handleAdd"
           >新增</el-button
         >
       </el-col>
@@ -68,6 +74,7 @@
                         type="warning"
                         size="medium"
                         @click="handleEdit(scope.row)"
+                        v-hasPermi="['AU0902', 'AU090203']"
                         >修改
                       </el-button>
                     </el-dropdown-item>
@@ -75,12 +82,17 @@
                       <el-button
                         type="danger"
                         size="medium"
+                        v-hasPermi="['AU0902', 'AU090204']"
                         @click="handleDelete(scope.row.id)"
                         >删除
                       </el-button>
                     </el-dropdown-item>
                     <el-dropdown-item>
-                      <el-button type="primary" size="medium" @click="setAuth(scope.row)"
+                      <el-button
+                        type="primary"
+                        size="medium"
+                        @click="setAuth(scope.row)"
+                        v-hasPermi="['AU0902', 'AU090205']"
                         >配置权限
                       </el-button>
                     </el-dropdown-item>

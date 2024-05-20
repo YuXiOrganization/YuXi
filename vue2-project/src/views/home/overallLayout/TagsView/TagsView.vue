@@ -53,13 +53,17 @@ export default {
   },
   watch: {
     $route(val) {
-      // console.log("val", val);
+      console.log(" $route(val) {", val);
       this.addTags();
     },
   },
   mounted() {
     // this.addTags();
     this.resizeHandler();
+    this.$nextTick(() => {
+      // console.log("触发刷新");
+      this.addTags(true);
+    });
   },
   beforeDestroy() {
     // console.log("销毁前");
@@ -74,7 +78,7 @@ export default {
       //   this.addTags();
       // });
     },
-    addTags() {
+    addTags(type) {
       const { name, path } = this.$route;
       // console.log("触发this.$route;", this.$route);
       this.activeMenu = path;
@@ -83,9 +87,10 @@ export default {
         let option = {
           name: name,
           path: path,
+          type: type ? true : false,
         };
         // getCachedViews.push(option);
-        console.log("option", option);
+        // console.log("option", option);
 
         this.$store.dispatch("app/addCachedViews", option);
         // this.$store.dispatch('tagsView/addView', this.$route)
