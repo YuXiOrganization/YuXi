@@ -36,9 +36,7 @@ const CommonMixin = {
         }
     },
     created() {
-
         this.loadData();
-
     },
     computed: {},
     methods: {
@@ -49,10 +47,12 @@ const CommonMixin = {
         handleSizeChange(val) {
             // console.log(`每页 ${val} 条`);
             this.ipagination.pageSize = val
+            this.loadData();
         },
         handleCurrentChange(val) {
             this.ipagination.current = val
                 // console.log(`当前页: ${val}`);
+            this.loadData();
         },
         async loadData(arg) {
             if (!this.url.list) {
@@ -64,7 +64,7 @@ const CommonMixin = {
                 if (arg === 1) {
                     this.ipagination.current = 1;
                 }
-                var params = this.getQueryParams(); //查询条件
+                let params = this.getQueryParams(); //查询条件
                 this.loading = true;
                 const res = await getAction(this.url.list, params)
                 if (res.success) {
@@ -77,6 +77,7 @@ const CommonMixin = {
                 }
                 this.loading = false
             } catch (error) {
+                console.log("error", error)
                 this.loading = false
             }
 
@@ -101,6 +102,11 @@ const CommonMixin = {
             this.$refs.modalForm.edit(record);
             this.$refs.modalForm.title = "编辑";
             this.$refs.modalForm.disableSubmit = false;
+        },
+        handleDetail(record) {
+            this.$refs.modalForm.edit(record);
+            this.$refs.modalForm.title = "详情";
+            this.$refs.modalForm.disableSubmit = true;
         },
         isDeleteFun() {
             return new Promise((resolve) => {

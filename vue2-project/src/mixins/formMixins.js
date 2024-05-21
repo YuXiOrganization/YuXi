@@ -1,4 +1,5 @@
 import {
+    getAction,
     httpAction
 } from '@/api/currencyApi'
 
@@ -26,6 +27,21 @@ const formMixins = {
         },
     },
     methods: {
+        async queryById(id) {
+            try {
+
+                let params = {
+                    agentId: id
+                }
+                const res = await getAction(this.url.queryById, params);
+                if (res.success) {
+                    this.formModel = res.data;
+                }
+            } catch (error) {
+                console.log("error", error);
+            }
+        },
+
         add() {
             this.$refs.form.resetFields();
         },
