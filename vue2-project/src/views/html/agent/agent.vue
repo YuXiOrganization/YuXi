@@ -44,7 +44,7 @@
       </el-form-item>
       <el-form-item>
         <el-button type="primary" icon="el-icon-search" @click="handleQuery"
-          >搜索</el-button
+          >查询</el-button
         >
       </el-form-item>
     </el-form>
@@ -212,6 +212,15 @@
                         查看
                       </el-button>
                     </el-dropdown-item>
+                    <el-dropdown-item>
+                      <el-button
+                        :type="scope.row.check_status == 3 ? 'primary' : 'warning'"
+                        size="medium"
+                        @click="handleIsDetail(scope.row)"
+                      >
+                        {{ scope.row.check_status == 3 ? "查看理由" : "驳回" }}
+                      </el-button>
+                    </el-dropdown-item>
                   </el-dropdown-menu>
                 </el-dropdown>
               </el-col>
@@ -233,14 +242,14 @@
         @size-change="handleSizeChange"
         @current-change="handleCurrentChange"
         :current-page="ipagination.current"
-        :page-sizes="[15, 20, 30, 40, 50, 100]"
+        :page-sizes="ipagination.pageSizeOptions"
         :page-size="ipagination.pageSize"
         layout="total, sizes, prev, pager, next, jumper"
         :total="ipagination.total"
       >
       </el-pagination>
     </div>
-    <!-- <agentIsModal ref="agentIsModal"></agentIsModal> -->
+    <agentIsModal ref="agentIsModal" @ok="modalFormOk"></agentIsModal>
     <agentModal ref="modalForm" @ok="modalFormOk"></agentModal>
   </CommonPage>
 </template>
@@ -248,7 +257,7 @@
 <script>
 import { gettime } from "@/utils/collectionMethods/timeMethods.js";
 import agentModal from "./modules/agentModal.vue";
-
+import agentIsModal from "./modules/agentIsModal.vue";
 import { CommonMixin } from "@/mixins/commonMixins.js";
 import { filterObj } from "@/utils/collectionMethods/objectMethods.js";
 import { getAction, postFormAction } from "@/api/currencyApi";
@@ -334,11 +343,17 @@ export default {
 
   components: {
     agentModal,
+    agentIsModal,
   },
   mounted() {
     this.handleQuery();
   },
   methods: {
+    handleIsDetail(record) {
+      this.$refs.agentIsModal.edit(record);
+      this.$refs.agentIsModal.title = record.check_status == 3 ? "查看理由" : "驳回";
+      this.$refs.agentIsModal.disableSubmit = record.check_status == 3 ? true : false;
+    },
     updataSalveInfo(val, type) {
       let title = null;
       let url = null;
@@ -456,7 +471,7 @@ export default {
 }
 .table-class {
   width: 100%;
-  padding: 20px 0;
+  padding: 0 0 20px 0;
   .el-dropdown-link {
     cursor: pointer;
   }

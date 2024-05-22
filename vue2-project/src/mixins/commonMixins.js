@@ -18,7 +18,7 @@ const CommonMixin = {
             ipagination: {
                 current: 1,
                 pageSize: 10,
-                pageSizeOptions: ['10', '20', '30'],
+                pageSizeOptions: [10, 15, 20, 30, 40, 50, 100],
                 showTotal: (total, range) => {
                     return range[0] + "-" + range[1] + " 共" + total + "条"
                 },

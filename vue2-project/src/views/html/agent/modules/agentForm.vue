@@ -3,11 +3,11 @@
     <el-form
       v-loading="confirmLoading"
       :label-position="labelPosition"
+      :label-width="labelWidth"
       :disabled="formDisabled"
       ref="form"
       :model="formModel"
       :rules="validatorRules"
-      :label-width="labelWidth"
     >
       <el-row>
         <el-col :span="8">

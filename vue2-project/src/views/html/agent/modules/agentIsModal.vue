@@ -10,6 +10,8 @@
     @cancel="handleCancel"
   >
     <el-form
+      label-position="right"
+      label-width="120px"
       :disabled="disableSubmit"
       ref="form"
       :model="formModel"
@@ -19,8 +21,7 @@
         <el-input
           size="medium"
           type="textarea"
-          placeholder="请输入内容"
-          readonly
+          placeholder="请输入理由"
           v-model="formModel.error_check_status"
           maxlength="30"
           show-word-limit
@@ -45,7 +46,7 @@ export default {
       url: {
         updateAgentStatus: "/agent/updateAgentStatus",
       },
-      transferParameter: null,
+
       formModel: {
         error_check_status: "",
       },
@@ -71,9 +72,11 @@ export default {
       });
     },
     async edit(record) {
-      this.transferParameter = record;
-      await this.queryAllAuth();
-      await this.queryAuthByRoleId(record.id);
+      this.formModel = JSON.parse(JSON.stringify(record));
+      // this.formModel.error_check_status = "";
+      // await this.queryAllAuth();
+      // await this.queryAuthByRoleId(record.id);
+      console.log(" this.formModel", this.formModel);
       this.visible = true;
       //   this.$nextTick(() => {
       //     this.$refs.realForm.edit(record);
@@ -84,7 +87,16 @@ export default {
       this.visible = false;
     },
     handleOk() {
-      this.updateAuth();
+      if (this.disableSubmit) {
+        this.close();
+      } else {
+        this.$refs["form"].validate((valid) => {
+          if (valid) {
+            //   this.request(formData);
+            this.updateAuth();
+          }
+        });
+      }
     },
     submitCallback() {
       this.$emit("ok");
@@ -95,25 +107,15 @@ export default {
     },
     async updateAuth() {
       try {
-        // this.$refs[formName].validate((valid) => {
-        //             if (valid) {
-        //                 //   this.request(formData);
-        //                 resolve(true);
-        //             } else {
-        //                 // reject({ error: "报错" });
-        //                 // console.log("error submit!!");
-        //                 return false;
-        //             }
-        //         });
         let option = {
-          id: this.transferParameter.id,
-          error_check_status: this.transferParameter.error_check_status,
+          id: this.formModel.id,
+          error_check_status: this.formModel.error_check_status,
         };
         //加载数据 若传入参数1则加载第一页的内容
         const res = await postFormAction(this.url.updateAgentStatus, option);
         if (res.success) {
           //update-begin---author:zhangyafei    Date:20201118  for：适配不分页的数据列表------------
-          this.close();
+          this.submitCallback();
           this.$message.success(res.msg);
         } else {
           this.$message.warning(res.msg);

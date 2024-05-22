@@ -1,6 +1,6 @@
 <template>
   <CommonPage>
-    <el-row :gutter="10" class="mb8">
+    <el-row  :gutter="10" class="mb20 ">
       <el-col :span="1.5">
         <el-button
           v-hasPermi="['AU0902', 'AU090202']"
@@ -110,7 +110,7 @@
         @size-change="handleSizeChange"
         @current-change="handleCurrentChange"
         :current-page="ipagination.current"
-        :page-sizes="[15, 20, 30, 40, 50, 100]"
+        :page-sizes="ipagination.pageSizeOptions"
         :page-size="ipagination.pageSize"
         layout="total, sizes, prev, pager, next, jumper"
         :total="ipagination.total"
@@ -164,6 +164,9 @@ export default {
 ::v-deep(.el-dropdown-menu__item) {
   margin: 5px !important;
 }
+.mb20{
+  margin-bottom: 20px;
+}
 .pagination-class {
   width: 100%;
   display: flex;
@@ -172,7 +175,7 @@ export default {
 }
 .table-class {
   width: 100%;
-  padding: 20px 0;
+  padding: 0 0 20px 0;
   .el-dropdown-link {
     cursor: pointer;
   }
