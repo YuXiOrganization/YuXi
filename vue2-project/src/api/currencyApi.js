@@ -59,16 +59,28 @@ const httpAction = (url, parameter, method) => {
     // let sign = signMd5Utils.getSign(url, parameter);
     // //将签名和时间戳，添加在请求接口 Header
     // let signHeader = {"X-Sign": sign,"X-TIMESTAMP": signMd5Utils.getDateTimeToString()};
+    if (method == 'get') {
+        return axios({
+            url: url,
+            method: method,
+            params: parameter,
+            headers: {
+                "Content-Type": 'multipart/form-data'
+            }
+            //   headers: signHeader
+        })
+    } else {
+        return axios({
+            url: url,
+            method: method,
+            data: parameter,
+            headers: {
+                "Content-Type": 'multipart/form-data'
+            }
+            //   headers: signHeader
+        })
+    }
 
-    return axios({
-        url: url,
-        method: method,
-        data: parameter,
-        headers: {
-            "Content-Type": 'multipart/form-data'
-        }
-        //   headers: signHeader
-    })
 }
 
 //put

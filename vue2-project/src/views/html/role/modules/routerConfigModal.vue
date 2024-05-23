@@ -30,10 +30,10 @@ export default {
     routerConfigForm,
   },
   methods: {
-    add(record) {
+    add(record,tableData) {
       this.visible = true;
       this.$nextTick(() => {
-        this.$refs.realForm.add(record);
+        this.$refs.realForm.add(record,tableData);
       });
     },
     edit(record) {

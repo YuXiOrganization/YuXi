@@ -65,9 +65,8 @@
 <script>
 import { gettime } from "@/utils/collectionMethods/timeMethods.js";
 import routerConfigModal from "./modules/routerConfigModal.vue";
-
 import { CommonMixin } from "@/mixins/commonMixins.js";
-
+import { postFormAction } from "@/api/currencyApi";
 export default {
   name: "RouterConfig",
   mixins: [CommonMixin],
@@ -89,11 +88,84 @@ export default {
 
   methods: {
     handleAdd(val) {
-      console.log("handleAdd", val);
-      this.$refs.modalForm.add(val);
-      this.$refs.modalForm.title = val ? "添加下一级" : "新增";
+      let getVal = {};
+      if (val) {
+        const { label, id } = val;
+        getVal.parent_Name = label;
+        getVal.parent_code = id;
+        let getIdLength = id.length;
+        switch (getIdLength) {
+          case 4:
+            getVal.type = 2;
+            break;
+          case 6:
+            getVal.type = 3;
+            break;
+        }
+      } else {
+        getVal.parent_Name = "模块";
+        getVal.parent_code = 0;
+        getVal.type = 1;
+      }
+      // console.log("handleAdd", getVal);
+      // return;
+      this.$refs.modalForm.add(getVal, this.dataSource);
+      this.$refs.modalForm.title = "添加下一级";
       this.$refs.modalForm.disableSubmit = false;
     },
+
+    handleEdit(val) {
+      let getVal = {};
+
+      console.log("handleAdd", getVal);
+
+      const { id, label } = val;
+      getVal.auth_code = id;
+      getVal.auth_name = label;
+
+      let getIdLength = id.length;
+      switch (getIdLength) {
+        case 4:
+          getVal.type = 1;
+          break;
+        case 6:
+          getVal.type = 2;
+          break;
+        case 6:
+          getVal.type = 3;
+          break;
+      }
+      // return;
+      this.$refs.modalForm.edit(getVal);
+      this.$refs.modalForm.title = "修改";
+      this.$refs.modalForm.disableSubmit = false;
+    },
+    async handleDelete(id) {
+      if (!this.url.delete) {
+        this.$message.error("请设置url.delete属性!");
+        return;
+      }
+      try {
+        const isDel = await this.isDeleteFun();
+        if (!isDel) {
+          return;
+        }
+        //加载数据 若传入参数1则加载第一页的内容
+        const res = await postFormAction(this.url.delete, {
+          auth_code: id,
+        });
+        if (res.success) {
+          //update-begin---author:zhangyafei    Date:20201118  for：适配不分页的数据列表------------
+          this.$message.success(res.msg);
+          this.loadData();
+        } else {
+          this.$message.warning(res.msg);
+        }
+      } catch (error) {
+        console.log("err", error);
+      }
+    },
+
     nodeExpand(obj, node) {
       this.defaultExpandedKeys = [obj.id];
     },
