@@ -12,28 +12,28 @@
       <el-row>
         <el-col :span="8">
           <el-form-item label="姓名：" prop="real_name">
-            <el-input v-model="formModel.real_name" autocomplete="off"></el-input>
+            <el-input v-model="formModel.real_name"></el-input>
           </el-form-item>
         </el-col>
         <el-col :span="8">
           <el-form-item label="手机号：" prop="phone">
-            <el-input v-model="formModel.phone" autocomplete="off"></el-input>
+            <el-input v-model="formModel.phone"></el-input>
           </el-form-item>
         </el-col>
         <el-col :span="8">
           <el-form-item label="身份证号：" prop="identity_card">
-            <el-input v-model="formModel.identity_card" autocomplete="off"></el-input>
+            <el-input v-model="formModel.identity_card"></el-input>
           </el-form-item>
         </el-col>
 
         <el-col :span="8">
           <el-form-item label="所属银行：" prop="bank_name">
-            <el-input v-model="formModel.bank_name" autocomplete="off"></el-input>
+            <el-input v-model="formModel.bank_name"></el-input>
           </el-form-item>
         </el-col>
         <el-col :span="8">
           <el-form-item label="开户行地址：" prop="open_bank">
-            <el-input v-model="formModel.open_bank" autocomplete="off"></el-input>
+            <el-input v-model="formModel.open_bank"></el-input>
           </el-form-item>
         </el-col>
         <el-col :span="8">
@@ -41,18 +41,17 @@
             <el-input
               type="number"
               v-model.number="formModel.cash_vouchers_total"
-              autocomplete="off"
             ></el-input>
           </el-form-item>
         </el-col>
         <el-col :span="8">
           <el-form-item label="银行卡号：" prop="card_no">
-            <el-input v-model="formModel.card_no" autocomplete="off"></el-input>
+            <el-input v-model="formModel.card_no"></el-input>
           </el-form-item>
         </el-col>
         <el-col :span="8">
           <el-form-item label="注册时间：" prop="create_time">
-            <el-input v-model="formModel.create_time" autocomplete="off"></el-input>
+            <el-input v-model="formModel.create_time"></el-input>
           </el-form-item>
         </el-col>
         <el-col :span="8">
@@ -69,7 +68,7 @@
         </el-col>
         <el-col :span="8">
           <el-form-item label="代理路径：" prop="path">
-            <el-input v-model="formModel.path" autocomplete="off"></el-input>
+            <el-input v-model="formModel.path"></el-input>
           </el-form-item>
         </el-col>
       </el-row>

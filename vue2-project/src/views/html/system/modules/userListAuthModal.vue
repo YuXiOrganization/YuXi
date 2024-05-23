@@ -9,15 +9,16 @@
     @ok="handleOk"
     @cancel="handleCancel"
   >
-    <el-tree
-      :data="auth_list"
-      ref="tree"
-      show-checkbox
-      node-key="id"
-      default-expand-all
-      :default-checked-keys="checked_auth_list"
-    >
-    </el-tree>
+    <div class="user_auth_modal"></div>
+    <el-checkbox-group v-model="checkList" class="auth_modal_group">
+      <el-checkbox
+        v-for="(item, index) in checked_auth_list"
+        :key="index"
+        :label="item.id"
+        :checked="item.checked"
+        >{{ item.role_name }}</el-checkbox
+      >
+    </el-checkbox-group>
   </CommonDialog>
 </template>
 
@@ -28,17 +29,17 @@ export default {
   data() {
     return {
       title: "",
-      width: "800",
+      width: "400px",
       visible: false,
       disableSubmit: false,
       auth_list: [],
       checked_auth_list: [],
       url: {
-        authByRoleId: "/role/queryAuthByRoleId",
-        queryAllAuth: "/role/queryAllAuth",
-        updateAuth: "/role/updateAuth",
+        queryRoleListByUserId: "/role/queryRoleListByUserId",
+        updateRoleByUserId: "role/updateRoleByUserId",
       },
       transferParameter: null,
+      checkList: [],
     };
   },
   components: {
@@ -52,9 +53,11 @@ export default {
       });
     },
     async edit(record) {
+      this.checkList = [];
+      this.checked_auth_list = [];
       this.transferParameter = record;
-      await this.queryAllAuth();
-      await this.queryAuthByRoleId(record.id);
+
+      await this.queryRoleListByUserId(record.id);
       this.visible = true;
       //   this.$nextTick(() => {
       //     this.$refs.realForm.edit(record);
@@ -76,20 +79,20 @@ export default {
     },
     async updateAuth() {
       try {
-        let checkedNodes = this.$refs.tree.getCheckedNodes();
-
-        let handleIds = checkedNodes
-          .map((item) => {
-            return item.id;
-          })
-          .join(",");
+        // let handleIds = checkedNodes
+        //   .map((item) => {
+        //     return item.id;
+        //   })
+        //   .join(",");
+        console.log("checkList", this.checkList.join(","));
+        // return;
 
         let option = {
-          handle_ids: handleIds,
-          roleId: this.transferParameter.id,
+          id: this.transferParameter.id,
+          roleId: this.checkList.join(","),
         };
         //加载数据 若传入参数1则加载第一页的内容
-        const res = await postFormAction(this.url.updateAuth, option);
+        const res = await postFormAction(this.url.updateRoleByUserId, option);
         if (res.success) {
           //update-begin---author:zhangyafei    Date:20201118  for：适配不分页的数据列表------------
           this.submitCallback();
@@ -101,33 +104,16 @@ export default {
         console.log("err", error);
       }
     },
-    async queryAllAuth() {
+
+    async queryRoleListByUserId(id) {
       try {
         //加载数据 若传入参数1则加载第一页的内容
-        const res = await postFormAction(this.url.queryAllAuth);
-        if (res.success) {
-          this.auth_list = res.data;
-        } else {
-          this.$message.warning(res.msg);
-        }
-      } catch (error) {
-        console.log("err", error);
-      }
-    },
-    async queryAuthByRoleId(roleid) {
-      try {
-        //加载数据 若传入参数1则加载第一页的内容
-        const res = await postFormAction(this.url.authByRoleId, {
-          roleId: roleid,
+        const res = await postFormAction(this.url.queryRoleListByUserId, {
+          id: id,
         });
         if (res.success) {
           this.checked_auth_list = res.data;
-          this.$nextTick(() => {
-            // 手动设置已选中的keys
-            if (this.$refs.tree) {
-              this.$refs.tree.setCheckedKeys(this.checked_auth_list);
-            }
-          });
+          console.log("this.checked_auth_list", this.checked_auth_list);
         } else {
           this.$message.warning(res.msg);
         }
@@ -138,4 +124,24 @@ export default {
   },
 };
 </script>
-<style lang="scss" scoped></style>
+<style lang="scss" scoped>
+.el-checkbox-group {
+  display: flex;
+  flex-direction: column;
+}
+
+.el-checkbox {
+  padding: 10px 50px;
+}
+.user_auth_modal {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+
+  .auth_modal_group {
+    display: flex;
+    flex-direction: column;
+  }
+}
+</style>

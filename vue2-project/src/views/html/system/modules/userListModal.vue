@@ -9,12 +9,12 @@
     @ok="handleOk"
     @cancel="handleCancel"
   >
-    <routerConfigForm ref="realForm" @ok="submitCallback" :disabled="disableSubmit" />
+    <userListForm ref="realForm" @ok="submitCallback" :disabled="disableSubmit" />
   </CommonDialog>
 </template>
 
 <script>
-import routerConfigForm from "./routerConfigForm.vue";
+import userListForm from "./userListForm.vue";
 import CommonDialog from "@/components/common/CommonDialog/CommonDialog.vue";
 export default {
   data() {
@@ -27,13 +27,13 @@ export default {
   },
   components: {
     CommonDialog,
-    routerConfigForm,
+    userListForm,
   },
   methods: {
-    add(record,tableData) {
+    add() {
       this.visible = true;
       this.$nextTick(() => {
-        this.$refs.realForm.add(record,tableData);
+        this.$refs.realForm.add();
       });
     },
     edit(record) {

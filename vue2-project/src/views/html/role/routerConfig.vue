@@ -4,7 +4,7 @@
       <el-col :span="1.5">
         <el-button
           v-hasPermi="['AU0903', 'AU090301']"
-          type="primary"
+          type="success"
           plain
           icon="el-icon-plus"
           size="mini"
@@ -13,6 +13,7 @@
         >
       </el-col>
     </el-row>
+    
     <div class="table-class">
       <el-tree
         :data="dataSource"

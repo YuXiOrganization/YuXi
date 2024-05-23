@@ -4,7 +4,7 @@
       <el-col :span="1.5">
         <el-button
           v-hasPermi="['AU0902', 'AU090202']"
-          type="primary"
+          type="success"
           plain
           icon="el-icon-plus"
           size="mini"
