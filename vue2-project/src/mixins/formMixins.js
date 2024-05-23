@@ -2,6 +2,9 @@ import {
     getAction,
     httpAction
 } from '@/api/currencyApi'
+import {
+    filterObj
+} from '@/utils/collectionMethods/objectMethods.js'
 
 const formMixins = {
     data() {
@@ -44,6 +47,7 @@ const formMixins = {
 
         add() {
             this.$refs.form.resetFields();
+            this.formModel = {}
         },
         edit(record) {
             this.$refs.form.resetFields();
@@ -104,9 +108,10 @@ const formMixins = {
         /** 发起请求，自动判断是执行新增还是修改操作 */
         async request() {
             try {
+                let getFormModal = await this.getFormData()
                 let url = this.url.add,
                     method = "post";
-                if (this.formModel.id) {
+                if (getFormModal.id) {
                     url = this.url.edit;
                     method = "post";
                 }
@@ -114,7 +119,7 @@ const formMixins = {
                 const {
                     success,
                     msg
-                } = await httpAction(url, this.formModel, method)
+                } = await httpAction(url, getFormModal, method)
 
                 if (success) {
                     this.$message.success(msg);
@@ -130,6 +135,12 @@ const formMixins = {
                 this.confirmLoading = false;
             }
 
+        },
+
+        getFormData() {
+            //获取查询条件
+            let data = Object.assign(this.formModel);
+            return filterObj(data);
         },
 
     }
