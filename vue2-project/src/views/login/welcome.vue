@@ -1,8 +1,6 @@
 <template>
   <CommonPage>
-    <div v-for="o in 4" :key="o" class="text item">
-      {{ "列表内容 " + o }}
-    </div>
+    <div class="welcome">欢迎进入后台管理系统</div>
   </CommonPage>
 </template>
 
@@ -10,7 +8,7 @@
 import CommonPage from "@/components/common/CommonPage.vue";
 import testView from "@/views/login/testView";
 export default {
-  name: "welcome",
+  name: "Welcome",
   components: {
     testView,
     CommonPage,
@@ -44,33 +42,11 @@ export default {
 <style lang="scss" scoped>
 .welcome {
   width: 100%;
-  background-color: #f5f6fb;
-  display: flex;
-  // align-items: center;
-  // justify-content: center;
   // background-color: #f5f6fb;
-  /* 在CSS中定义与transition name关联的过渡类名 */
-  .fade-enter-active,
-  .fade-leave-active {
-    transition: opacity 0.5s ease, transform 0.5s;
-    // transition: opacity 0.5s;
-  }
-  .fade-enter {
-    opacity: 0;
-    transform: translateX(-30px);
-  }
-  /* .fade-leave-active below version 2.1.8 */
-  .fade-leave-to {
-    opacity: 0;
-    transform: translateX(30px);
-  }
-
-  .box-card {
-    display: flex;
-    flex: auto;
-    margin: 12px;
-    border-radius: 8px;
-    // padding: 5px;
-  }
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 36px;
+  font-weight: bold;
 }
 </style>

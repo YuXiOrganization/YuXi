@@ -36,6 +36,27 @@ export default {
     flex-grow: 1;
     margin: 12px;
     border-radius: 8px;
+
+    /* 滚动条整体样式 */
+    &::-webkit-scrollbar {
+      width: 8px; /* 纵向滚动条宽度 */
+      height: 8px; /* 横向滚动条高度 */
+    }
+
+    /* 滚动条轨道 */
+    &::-webkit-scrollbar-track {
+      background: #f1f1f1;
+      border-radius: 8px;
+    }
+
+    /* 滚动条滑块 */
+    &::-webkit-scrollbar-thumb {
+      background: #d0d0d0;
+      border-radius: 8px;
+      &:hover {
+        background: #555;
+      }
+    }
   }
 }
 </style>
