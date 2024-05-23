@@ -6,8 +6,7 @@ node_modules
 
 
 # local env files
-.env.development
-.env.production
+.env.*
 .env.local
 .env.*.local
 
