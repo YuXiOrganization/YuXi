@@ -69,7 +69,7 @@ const CommonMixin = {
                 const res = await getAction(this.url.list, params)
                 if (res.success) {
                     //update-begin---author:zhangyafei    Date:20201118  for：适配不分页的数据列表------------
-                    this.dataSource = res.list
+                    this.dataSource = res.list || res.data
                     this.ipagination.total = res.total ? res.total : 0
                         //update-end---author:zhangyafei    Date:20201118  for：适配不分页的数据列表------------
                 } else {

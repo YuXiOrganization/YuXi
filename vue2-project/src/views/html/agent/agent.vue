@@ -1,6 +1,12 @@
 <template>
   <CommonPage>
-    <el-form :model="queryParam" ref="queryForm" size="small" :inline="true">
+    <el-form
+      v-hasPermi="['AU0101', 'AU010105']"
+      :model="queryParam"
+      ref="queryForm"
+      size="small"
+      :inline="true"
+    >
       <el-form-item label="姓名" prop="real_name">
         <el-input v-model="queryParam.real_name" placeholder="请输入姓名" clearable />
       </el-form-item>
@@ -29,6 +35,7 @@
             v-for="(v, i) in formType.check_status"
             :label="v.name"
             :value="v.id"
+            :key="i"
           ></el-option>
         </el-select>
       </el-form-item>
@@ -39,6 +46,7 @@
             v-for="(v, i) in formType.is_api"
             :label="v.name"
             :value="v.id"
+            :key="i"
           ></el-option>
         </el-select>
       </el-form-item>
@@ -95,9 +103,9 @@
           >导出</el-button
         >
       </el-col> -->
-    <!-- <right-toolbar :showSearch.sync="showSearch" @queryTable="getList"></right-toolbar> -->
+    <!-- <right-toolbar @selection-change="handleSelectionChange" :showSearch.sync="showSearch" @queryTable="getList"></right-toolbar> -->
     <div class="table-class">
-      <el-table :data="dataSource" border @selection-change="handleSelectionChange">
+      <el-table :data="dataSource" border>
         <el-table-column align="center" label="序号" type="index" width="50">
         </el-table-column>
         <el-table-column
@@ -184,7 +192,7 @@
                     操作菜单<i class="el-icon-arrow-down el-icon--left"></i>
                   </span>
                   <el-dropdown-menu slot="dropdown">
-                    <el-dropdown-item>
+                    <el-dropdown-item v-hasPermi="['AU0101', 'AU010106']">
                       <el-button
                         :type="scope.row.is_agent_rate != 1 ? 'success' : 'danger'"
                         size="medium"
@@ -193,7 +201,7 @@
                         {{ scope.row.is_agent_rate != 1 ? "开启" : "关闭" }}费率模板
                       </el-button>
                     </el-dropdown-item>
-                    <el-dropdown-item>
+                    <el-dropdown-item v-hasPermi="['AU0101', 'AU010106']">
                       <el-button
                         :type="scope.row.api_zfb != 1 ? 'success' : 'danger'"
                         size="medium"
@@ -203,7 +211,7 @@
                       </el-button>
                     </el-dropdown-item>
 
-                    <el-dropdown-item>
+                    <el-dropdown-item v-hasPermi="['AU0101', 'AU010102']">
                       <el-button
                         type="primary"
                         size="medium"
@@ -212,7 +220,7 @@
                         查看
                       </el-button>
                     </el-dropdown-item>
-                    <el-dropdown-item>
+                    <el-dropdown-item v-hasPermi="['AU0101', 'AU010101']">
                       <el-button
                         :type="scope.row.check_status == 3 ? 'primary' : 'warning'"
                         size="medium"
@@ -346,7 +354,8 @@ export default {
     agentIsModal,
   },
   mounted() {
-    this.handleQuery();
+    // this.handleQuery();
+    this.loadqueryAgentTotal();
   },
   methods: {
     handleIsDetail(record) {

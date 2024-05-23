@@ -62,6 +62,7 @@
                 v-for="(v, i) in formType.is_api"
                 :label="v.name"
                 :value="v.id"
+                :key="i"
               ></el-option>
             </el-select>
           </el-form-item>
