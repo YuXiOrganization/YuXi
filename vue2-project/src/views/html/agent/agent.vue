@@ -419,14 +419,6 @@ export default {
       }
     },
 
-    dictionaryFun(v, type) {
-      // console.log("v", v);
-      // console.log("type", type.property);
-      const getList = this.formType[type.property];
-      const foundItem = getList.find((item) => item.id == v[type.property]);
-      // console.log("foundItem", foundItem);
-      return foundItem ? foundItem.name : "";
-    },
     async loadqueryAgentTotal() {
       try {
         //加载数据 若传入参数1则加载第一页的内容
