@@ -5,6 +5,7 @@
     :width="width"
     :fullscreen="fullscreen"
     @close="handleCancel"
+    :append-to-body="appendToBody"
   >
     <div class="dialog-context">
       <slot></slot>
@@ -41,6 +42,11 @@ export default {
     okClose: {
       type: Boolean,
       default: true,
+    },
+    // Dialog 自身是否插入至 body 元素上。嵌套的 Dialog 必须指定该属性并赋值为 true
+    appendToBody: {
+      type: Boolean,
+      default: false,
     },
   },
 
