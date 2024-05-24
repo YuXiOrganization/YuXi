@@ -54,6 +54,8 @@ export const constantRoutes = [{
         component: () =>
             import ('@/views/login/login.vue')
     },
+
+
     {
         path: '/',
         name: 'home',
@@ -61,11 +63,12 @@ export const constantRoutes = [{
         component: () =>
             import ('@/views/home/home.vue'),
         children: [{
-                name: '首页',
+                name: 'welcome',
                 path: '/welcome',
                 component: () =>
                     import ('@/views/login/welcome.vue')
             },
+
             {
                 name: "admin",
                 path: '/admin',
@@ -107,10 +110,15 @@ export const constantRoutes = [{
 
 ]
 
-// 动态路由，基于用户权限动态去加载
+// 动态路由，动态去加载
 export const dynamicRoutes = [
 
-
+    {
+        path: '/collectionView',
+        name: 'collectionView',
+        component: () =>
+            import ('@/views/collectionView/collectionView.vue')
+    },
 
 ]
 

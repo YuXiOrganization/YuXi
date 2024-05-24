@@ -6,7 +6,9 @@ import {
     sortFun,
     handleTree
 } from '@/utils/collectionMethods/arrayMethods'
-import router from '@/router'
+import router, {
+    dynamicRoutes
+} from '@/router'
 import {
     Message
 } from 'element-ui'
@@ -97,14 +99,13 @@ const user = {
             commit,
             state
         }) {
-            return new Promise((resolve, reject) => {
-                localStorage.removeItem("token");
+            return new Promise(async(resolve, reject) => {
 
-                // Message.error(err)
+                const res = await postFormAction("/logout");
+                localStorage.removeItem("token");
                 router.replace({
                     path: '/'
                 })
-
                 resolve()
             })
         },
@@ -141,14 +142,20 @@ const user = {
                     })
                     let getData = sortFun(getAuthList.data, 'id')
                     let gethandleTree = handleTree(getData)
-                    console.log("gethandleTree", gethandleTree)
-                        // TODO 动态路由添加
+                        // console.log("gethandleTree", gethandleTree)
+                        //  接口动态路由添加
                         // 有两种一种在现有路由中添加router.addRoute('home', route);
                         //一种新增路由 router.addRoute(route);
                         // https://v3.router.vuejs.org/zh/api/#router-addroutes
                     gethandleTree.forEach(route => {
                         router.addRoute(route);
                     });
+                    //  动态路由添加
+                    dynamicRoutes.forEach(route => {
+                        router.addRoute(route);
+                    });
+
+
                     commit('SET_RIGHT_LIST', gethandleTree)
                     resolve()
                 } catch (error) {

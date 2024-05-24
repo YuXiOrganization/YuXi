@@ -5,6 +5,7 @@
     "scripts": {
         "serve": "vue-cli-service serve",
         "build": "vue-cli-service build",
+        "build:development": "node --max_old_space_size=4096 node_modules/@vue/cli-service/bin/vue-cli-service build --mode development",
         "lint": "vue-cli-service lint"
     },
     "dependencies": {
