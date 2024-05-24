@@ -93,7 +93,27 @@ export const constantRoutes = [{
 
         ]
     },
+    // {
+    //     name: 'timeComponent',
+    //     path: '/collectionView/timeComponent',
+    //     component: () =>
+    //         import ('@/views/collectionView/timeComponent/timeComponent.vue')
+    // },
+    // {
+    //     path: '/collectionView',
+    //     name: 'collectionView',
+    //     redirect: '/collectionView/timeComponent',
+    //     component: () =>
+    //         import ('@/views/collectionView/collectionView.vue'),
+    //     children: [{
+    //             name: 'timeComponent',
+    //             path: '/collectionView/timeComponent',
+    //             component: () =>
+    //                 import ('@/views/collectionView/timeComponent/timeComponent.vue')
+    //         },
 
+    //     ]
+    // },
     {
         path: '/404',
         component: () =>
@@ -116,8 +136,17 @@ export const dynamicRoutes = [
     {
         path: '/collectionView',
         name: 'collectionView',
+        redirect: '/collectionView/timeComponent',
         component: () =>
-            import ('@/views/collectionView/collectionView.vue')
+            import ('@/views/collectionView/collectionView.vue'),
+        children: [{
+                name: 'timeComponent',
+                path: '/collectionView/timeComponent',
+                component: () =>
+                    import ('@/views/collectionView/timeComponent/timeComponent.vue')
+            },
+
+        ]
     },
 
 ]

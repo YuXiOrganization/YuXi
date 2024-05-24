@@ -77,8 +77,21 @@ export default {
       // ],
     };
   },
+  props: {
+    transmitRightList: {
+      type: Array,
+      required: true,
+      default: () => {
+        return [];
+      },
+    },
+  },
   computed: {
-    ...mapGetters(["sidebar","rightList"]),
+    // ,"rightList"
+    ...mapGetters(["sidebar"]),
+    rightList() {
+      return this.transmitRightList;
+    },
     activeMenu() {
       const route = this.$route;
       const { meta, path } = route;

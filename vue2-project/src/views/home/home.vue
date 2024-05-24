@@ -5,7 +5,11 @@
       class="drawer-bg"
       @click="handleClickOutside"
     />
-    <sidebar v-if="!sidebar.hide" class="sidebar-container"></sidebar>
+    <sidebar
+      v-if="!sidebar.hide"
+      :transmitRightList="rightList"
+      class="sidebar-container"
+    ></sidebar>
 
     <div class="main-container">
       <navbar></navbar>
@@ -14,7 +18,7 @@
       <!-- <div class="main-container-page"> -->
       <transition name="fade" mode="out-in" appear>
         <!-- :include="cachedViews" -->
-        <keep-alive >
+        <keep-alive>
           <router-view v-if="!$route.meta.link" :key="key"></router-view>
         </keep-alive>
       </transition>
@@ -53,7 +57,7 @@ export default {
     key() {
       return this.$route.path;
     },
-    ...mapGetters(["sidebar", "device"]),
+    ...mapGetters(["sidebar", "device", "rightList"]),
     classObj() {
       return {
         hideSidebar: !this.sidebar.opened,
@@ -63,17 +67,19 @@ export default {
       };
     },
     cachedViews() {
-      let getCachedViews = this.$store.state.app.cachedViews.map((item) => {
-        // TODO keep-alive缓存方法
-        if (!item.type) {
-          let getPath = item.path
-            .split("/")
-            .pop()
-            .replace(/^\w/, (c) => c.toUpperCase());
+      let getCachedViews = this.$store.state.app.cachedViews
+        .map((item) => {
+          // TODO keep-alive缓存方法
+          if (!item.type) {
+            let getPath = item.path
+              .split("/")
+              .pop()
+              .replace(/^\w/, (c) => c.toUpperCase());
 
-          return getPath;
-        }
-      }).filter(Boolean);
+            return getPath;
+          }
+        })
+        .filter(Boolean);
       // console.log("getCachedViews", getCachedViews);
       return getCachedViews;
     },

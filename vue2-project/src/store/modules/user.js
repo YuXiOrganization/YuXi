@@ -149,12 +149,14 @@ const user = {
                         // https://v3.router.vuejs.org/zh/api/#router-addroutes
                     gethandleTree.forEach(route => {
                         router.addRoute(route);
+                        // console.log("routevroute", route)
                     });
-                    //  动态路由添加
+                    // //  动态路由添加
                     dynamicRoutes.forEach(route => {
                         router.addRoute(route);
                     });
-
+                    // console.log("gethandleTree", gethandleTree)
+                    // console.log("dynamicRoutes", dynamicRoutes)
 
                     commit('SET_RIGHT_LIST', gethandleTree)
                     resolve()
