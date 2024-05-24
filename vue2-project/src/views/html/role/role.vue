@@ -48,7 +48,7 @@
       </el-col> -->
     <!-- <right-toolbar :showSearch.sync="showSearch" @queryTable="getList"></right-toolbar> -->
     <div class="table-class">
-      <el-table :data="dataSource" border @selection-change="handleSelectionChange">
+      <el-table :data="dataSource" stripe border @selection-change="handleSelectionChange">
         <el-table-column align="center" label="序号" type="index" width="50">
         </el-table-column>
 

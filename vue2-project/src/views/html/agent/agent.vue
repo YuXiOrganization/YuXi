@@ -105,7 +105,7 @@
       </el-col> -->
     <!-- <right-toolbar @selection-change="handleSelectionChange" :showSearch.sync="showSearch" @queryTable="getList"></right-toolbar> -->
     <div class="table-class">
-      <el-table :data="dataSource" border>
+      <el-table :data="dataSource" stripe border>
         <el-table-column align="center" label="序号" type="index" width="50">
         </el-table-column>
         <el-table-column
