@@ -21,8 +21,9 @@ const getArticleTem = () => {
   }
 };
 
-const Button = () => {
-  return <button>click me!</button>;
+const Button = (props) => {
+  console.log('props',props)
+  return <button>click me!My is son</button>;
 };
 
 const App = () => {
@@ -75,9 +76,9 @@ const App = () => {
       <button onClick={($event) => handleClick("jack", $event)}>
         this is button{counts}
         {form.name}
-      </button>
-      {Button()}
-      <Button></Button>
+      </button> 
+      {/* {Button()} */}
+      <Button count={count}></Button>
     </div>
   );
 };
