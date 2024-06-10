@@ -41,8 +41,11 @@ const App = () => {
     return "active";
   };
 
+  const [value, setValue] = useState("");
+
   return (
     <div className="App">
+      <input value={value} onChange={(e) => setValue(e.target.value)}></input>
       this is app{count} {getName()} {new Date().getDate()}
       <div style={{ color: "red" }}>this is red</div>
       <div style={style}>
