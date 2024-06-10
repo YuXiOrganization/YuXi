@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useRef, useState } from "react";
 import "./index.css";
 const count = 100;
 
@@ -43,11 +43,24 @@ const App = () => {
 
   const [value, setValue] = useState("");
 
+  const inputRef = useRef(null);
+  const showDom = () => {
+    console.log("inputRef", inputRef.current);
+  };
+
   return (
     <div className="App">
-      <input value={value} onChange={(e) => setValue(e.target.value)}></input>
+      <input
+        ref={inputRef}
+        type="text"
+        value={value}
+        onChange={(e) => setValue(e.target.value)}
+      ></input>
       this is app{count} {getName()} {new Date().getDate()}
-      <div style={{ color: "red" }}>this is red</div>
+      <br />
+      <button onClick={showDom} style={{ color: "red" }}>
+        this is red
+      </button>
       <div style={style}>
         {list.map((item) => (
           <div key={item.id}>{item.name}</div>
