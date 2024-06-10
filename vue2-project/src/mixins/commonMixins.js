@@ -32,6 +32,8 @@ const CommonMixin = {
             selectedRowKeys: [],
             /* table选中records*/
             selectionRows: [],
+            // 数据字典
+            formType: {}
 
         }
     },
@@ -163,6 +165,12 @@ const CommonMixin = {
             this.selectedRowKeys = [];
             this.selectionRows = [];
         },
+        dictionaryFun(v, type) {
+            const getList = this.formType[type.property];
+            const foundItem = getList.find((item) => item.id == v[type.property]);
+            return foundItem ? foundItem.name : "--";
+        },
+
 
     },
 

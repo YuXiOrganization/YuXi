@@ -21,7 +21,24 @@ module.exports = defineConfig({
     //注意nginx配置
     assetsDir: 'staticAdd',
     lintOnSave: false, // 关闭保存时的ESLint检查
+    //指定 Vue CLI 是否应该转译依赖包,设置为 true 后会强制转译所有依赖
     transpileDependencies: true,
+
+    devServer: {
+        host: '0.0.0.0',
+        port: 3000,
+        open: true,
+        proxy: {
+            // detail: https://cli.vuejs.org/config/#devserver-proxy
+            '/provider': {
+                target: 'https://localhost:8080',
+                ws: false,
+                changeOrigin: true
+            }
+        },
+        //绕过主机名检查
+        // disableHostCheck: true
+    },
     configureWebpack: {
         name: name,
         resolve: {
