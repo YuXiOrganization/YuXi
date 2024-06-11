@@ -12,15 +12,6 @@ const getName = () => {
 
 const isLogin = true;
 
-const articleType = 1;
-const getArticleTem = () => {
-  if (articleType === 0) {
-    return <div>my is no image article</div>;
-  } else if (articleType === 1) {
-    return <div>my is only one image type</div>;
-  }
-};
-
 const Son = (props) => {
   const sonMsg = "this is son msg";
   console.log("props", props);
@@ -38,10 +29,36 @@ const C = () => {
 
   return <div>this is C,{msg}</div>;
 };
+const ImageArticle = () => {
+  useEffect(() => {
+    const timer = setInterval(() => {
+      console.log("定时器执行中");
+    }, 1000);
+
+    return () => {
+      //清除副作用(组件卸载时)
+      clearInterval(timer);
+    };
+  }, []);
+  return <div>my is image type</div>;
+};
+
+const OneImage = () => {
+  return <div>my is only one image type</div>;
+};
 
 const App = () => {
+  const [articleType, setArticle] = useState(1);
+  const getArticleTem = () => {
+    if (articleType === 0) {
+      return <ImageArticle />;
+    } else if (articleType === 1) {
+      return <OneImage />;
+    }
+  };
   const handleClick = (val, e) => {
     // console.log("button clicked", val, e);
+    setArticle(articleType === 1 ? 0 : 1);
     setCounts(counts + 1);
     setForm({ ...form, name: "vue" });
   };
@@ -71,17 +88,21 @@ const App = () => {
   const appMsg = "this is app msg";
 
   const url = "http://geek.itheima.net/v1_0/channels";
-  const [list,setList]=useState([])
+  const [list, setList] = useState([]);
   useEffect(() => {
     const getList = async () => {
       const res = await fetch(url);
       const list = await res.json();
       console.log("list", list);
-      setList(list.data.channels)
+      setList(list.data.channels);
     };
     getList();
   }, []);
 
+  useEffect(() => {
+    console.log("val发生变化");
+  }, [counts]);
+  // value
   return (
     <div className="App">
       <input
