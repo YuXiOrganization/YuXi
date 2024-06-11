@@ -1,4 +1,4 @@
-import { useRef, useState } from "react";
+import { createContext, useContext, useRef, useState } from "react";
 import "./index.css";
 const count = 100;
 
@@ -22,8 +22,21 @@ const getArticleTem = () => {
 };
 
 const Son = (props) => {
-  console.log('props',props)
-  return <div>click me!My is son{props.children}</div>;
+  const sonMsg = "this is son msg";
+  console.log("props", props);
+  return (
+    <div>
+      click me!My is son{props.children}
+      <button onClick={() => props.onGetSonMsg(sonMsg)}>send </button>
+      <C></C>
+    </div>
+  );
+};
+const MsgContext = createContext();
+const C = () => {
+  const msg = useContext(MsgContext);
+
+  return <div>this is C,{msg}</div>;
 };
 
 const App = () => {
@@ -48,6 +61,14 @@ const App = () => {
   const showDom = () => {
     console.log("inputRef", inputRef.current);
   };
+
+  const getMsg = (msg) => {
+    console.log("msg", msg);
+    setMsg(msg);
+  };
+  const [msg, setMsg] = useState("");
+
+  const appMsg = "this is app msg";
 
   return (
     <div className="App">
@@ -76,11 +97,13 @@ const App = () => {
       <button onClick={($event) => handleClick("jack", $event)}>
         this is button{counts}
         {form.name}
-      </button> 
+      </button>
       {/* {Button()} */}
-      <Son count={count}>
-        <span>this is children</span>
-      </Son>
+      <MsgContext.Provider value={appMsg}>
+        <Son onGetSonMsg={getMsg} count={count}>
+          <span>this is children,{msg}</span>
+        </Son>
+      </MsgContext.Provider>
     </div>
   );
 };
