@@ -1,14 +1,14 @@
-import { createContext, useContext, useRef, useState } from "react";
+import { createContext, useContext, useEffect, useRef, useState } from "react";
 import "./index.css";
 const count = 100;
 
 const getName = () => {
   return "MyName";
 };
-const list = [
-  { id: 1, name: "react" },
-  { id: 2, name: "vue" },
-];
+// const list = [
+//   { id: 1, name: "react" },
+//   { id: 2, name: "vue" },
+// ];
 
 const isLogin = true;
 
@@ -69,6 +69,18 @@ const App = () => {
   const [msg, setMsg] = useState("");
 
   const appMsg = "this is app msg";
+
+  const url = "http://geek.itheima.net/v1_0/channels";
+  const [list,setList]=useState([])
+  useEffect(() => {
+    const getList = async () => {
+      const res = await fetch(url);
+      const list = await res.json();
+      console.log("list", list);
+      setList(list.data.channels)
+    };
+    getList();
+  }, []);
 
   return (
     <div className="App">
