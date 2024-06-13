@@ -47,7 +47,20 @@ const OneImage = () => {
   return <div>my is only one image type</div>;
 };
 
+const useToggle = () => {
+  const [values, setValue] = useState(true);
+  const toggle = () => {
+    setValue(!values);
+  };
+
+  return {
+    values,
+    toggle,
+  };
+};
+
 const App = () => {
+  const { values, toggle } = useToggle();
   const [articleType, setArticle] = useState(1);
   const getArticleTem = () => {
     if (articleType === 0) {
@@ -105,6 +118,8 @@ const App = () => {
   // value
   return (
     <div className="App">
+      {values && <div>this is toggleFun</div>}
+      <button onClick={toggle}>toggle</button>
       <input
         ref={inputRef}
         type="text"
