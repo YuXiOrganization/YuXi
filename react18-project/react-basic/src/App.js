@@ -1,5 +1,12 @@
 import { createContext, useContext, useEffect, useRef, useState } from "react";
 import "./index.css";
+import { useDispatch, useSelector } from "react-redux";
+import {
+  inscrement,
+  decrement,
+  fetchChannlList,
+} from "./store/modules/counterStore";
+
 const count = 100;
 
 const getName = () => {
@@ -60,6 +67,8 @@ const useToggle = () => {
 };
 
 const App = () => {
+  const getUseSelector = useSelector((state) => state.counter);
+  const dispatch = useDispatch();
   const { values, toggle } = useToggle();
   const [articleType, setArticle] = useState(1);
   const getArticleTem = () => {
@@ -118,6 +127,11 @@ const App = () => {
   // value
   return (
     <div className="App">
+      <div>{getUseSelector.count}</div>
+      <br />
+      <button onClick={() => dispatch(inscrement())}>+++</button>
+      <button onClick={() => dispatch(decrement(10))}>---</button>
+      <button onClick={() => dispatch(fetchChannlList())}>asyncFun</button>
       {values && <div>this is toggleFun</div>}
       <button onClick={toggle}>toggle</button>
       <input
