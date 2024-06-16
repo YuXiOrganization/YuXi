@@ -21,7 +21,8 @@ const isLogin = true;
 
 const Son = (props) => {
   const sonMsg = "this is son msg";
-  console.log("props", props);
+  // console.log("props", props);
+  console.log("create Son")
   return (
     <div>
       click me!My is son{props.children}

@@ -1,6 +1,7 @@
 import { useReducer } from "react";
 
 const Board = () => {
+  console.log("create Board")
   const reducer = (stateBoard, action) => {
     switch (action.type) {
       case "INC":
