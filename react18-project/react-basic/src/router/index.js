@@ -1,7 +1,8 @@
 import Login from "../page/Login";
 import App from "../App";
 import Board from "../page/Board";
-import NotFound from "../page/NotFound/NotFound";
+import NotFound from "@/page/NotFound/NotFound";
+
 // ,createHashRouter #
 import { createBrowserRouter } from "react-router-dom";
 
