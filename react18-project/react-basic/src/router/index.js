@@ -1,10 +1,13 @@
-import Login from "../page/Login";
-import App from "../App";
-import Board from "../page/Board";
-import NotFound from "@/page/NotFound/NotFound";
-
 // ,createHashRouter #
 import { createBrowserRouter } from "react-router-dom";
+
+import Login from "../page/Login";
+import App from "../App";
+// import Board from "../page/Board";
+import NotFound from "@/page/NotFound/NotFound";
+
+import { Suspense, lazy } from "react";
+const Board = lazy(() => import("@/page/Board"));
 
 const router = createBrowserRouter([
   {
@@ -18,7 +21,11 @@ const router = createBrowserRouter([
       {
         index: true,
         // path: "board",
-        element: <Board />,
+        element: (
+          <Suspense fallback={"loading..."}>
+            <Board />
+          </Suspense>
+        ),
         // element: () => import("../page/Board"),
       },
     ],
