@@ -6,7 +6,7 @@ import {
   decrement,
   fetchChannlList,
 } from "./store/modules/counterStore";
-
+import { Outlet, useNavigate, useSearchParams } from "react-router-dom";
 const count = 100;
 
 const getName = () => {
@@ -125,8 +125,17 @@ const App = () => {
     console.log("val发生变化");
   }, [counts]);
   // value
+
+  const [params] = useSearchParams();
+  const id = params.get("id");
+
+  const navigate = useNavigate();
   return (
     <div className="App">
+      <Outlet />
+      <br/>
+      <button onClick={() => navigate("/login/1002")}>带参传递</button>
+      <div>ID：{id}</div>
       <div>{getUseSelector.count}</div>
       <br />
       <button onClick={() => dispatch(inscrement())}>+++</button>

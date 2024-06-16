@@ -1,20 +1,21 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
-import App from "./App";
+// import App from "./App";
 import store from "./store";
 import { Provider } from "react-redux";
-import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import {  RouterProvider } from "react-router-dom";
+import router from "./router";
 
-const router = createBrowserRouter([
-  {
-    path: "/login",
-    element: <div>this is login</div>,
-  },
-  {
-    path: "/article",
-    element: <div>this is article</div>,
-  },
-]);
+// const router = createBrowserRouter([
+//   {
+//     path: "/login",
+//     element: <App/>
+//   },
+//   {
+//     path: "/",
+//     element: <div>this is article</div>,
+//   },
+// ]);
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
