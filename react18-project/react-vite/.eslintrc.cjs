@@ -11,6 +11,7 @@ module.exports = {
   parserOptions: { ecmaVersion: 'latest', sourceType: 'module' },
   settings: { react: { version: '18.2' } },
   plugins: ['react-refresh'],
+  files: ['**/react-three/fiber/**'], //忽略react-three/fiber的警告
   rules: {
     'react/jsx-no-target-blank': 'off',
     'react-refresh/only-export-components': [
