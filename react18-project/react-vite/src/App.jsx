@@ -1,35 +1,50 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import { useRef, useEffect } from "react";
+import * as THREE from "three";
+import "./App.css";
 
-function App() {
-  const [count, setCount] = useState(0)
+const App = () => {
+  const canvasRef = useRef(null);
 
-  return (
-    <>
-      <div>
-        <a href="https://vitejs.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
-  )
-}
+  useEffect(() => {
+    const canvas = canvasRef.current;
+    if (canvas) {
+      const scene = new THREE.Scene();
+      const camera = new THREE.PerspectiveCamera(
+        75,
+        canvas.clientWidth / canvas.clientHeight,
+        0.1,
+        1000
+      );
 
-export default App
+      const renderer = new THREE.WebGLRenderer();
+      renderer.setSize(canvas.clientWidth, canvas.clientHeight);
+      canvas.appendChild(renderer.domElement);
+
+      const geometry = new THREE.BoxGeometry(1, 1, 1);
+      const material = new THREE.MeshBasicMaterial({ color: 0x00ff00 });
+      const cube = new THREE.Mesh(geometry, material);
+      scene.add(cube);
+      camera.position.z = 5;
+
+      const animate = () => {
+        cube.rotation.x += 0.01;
+        cube.rotation.y += 0.01;
+        renderer.render(scene, camera);
+      };
+
+      renderer.setAnimationLoop(animate);
+
+      // Cleanup on component unmount
+      return () => {
+        renderer.dispose();
+        if (canvas) {
+          canvas.removeChild(renderer.domElement);
+        }
+      };
+    }
+  }, []);
+
+  return <div className="canvas" ref={canvasRef}></div>;
+};
+
+export default App;
