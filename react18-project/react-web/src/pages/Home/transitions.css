@@ -1,0 +1,28 @@
+/* 路由切换动画 */
+.fade-enter {
+  opacity: 0;
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  transform: translateX(20px);
+}
+
+.fade-enter-active {
+  opacity: 1;
+  transform: translateX(0);
+  transition: opacity 0.5s ease-in-out, transform 0.5s ease-in-out;
+}
+
+.fade-exit {
+  opacity: 1;
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  transform: translateX(0);
+}
+
+.fade-exit-active {
+  opacity: 0;
+  transform: translateX(-20px);
+  transition: opacity 0.5s ease-in-out, transform 0.5s ease-in-out;
+}

@@ -1,0 +1,85 @@
+.news_dynamic {
+    display: flex;
+    flex-direction: column;
+
+
+
+    .news_dynamic_crad {
+        padding: 50px 0;
+
+        min-height: 1216px;
+        background: #F5F9FF;
+        display: flex;
+        flex-direction: column;
+        // justify-content: center;
+        align-items: center;
+
+        .news_dynamic_back {
+            font-size: 30px;
+            padding: 30px;
+            width: 100%;
+            width: 1200px;
+            background: #FFFFFF;
+        }
+
+        .dynamic_crad_html {
+            background: #FFFFFF;
+            width: 1200px;
+            min-height: 1216px;
+            padding: 34px 60px 60px 60px;
+        }
+    }
+
+    .news_dynamic_first {
+        padding: 51px 0 262px 0;
+        width: 100%;
+        min-height: 1317px;
+        background: linear-gradient(0deg, #FFFFFF, #E4EFFF);
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        // justify-content: center;
+        color: #333333;
+
+        .dynamic_first_box {
+            display: flex;
+            flex-direction: row;
+            flex-wrap: wrap;
+            max-width: 1296px;
+
+            .first_box_card {
+                margin: 10px 16px;
+                display: flex;
+                flex-direction: column;
+                width: 380px;
+
+                .box_card_img {
+                    width: 380px;
+                    height: 235px;
+                }
+
+                .box_card_list {
+                    background: #FFFFFF;
+                    width: 100%;
+                    font-family: Microsoft YaHei;
+                    padding: 21px 22px 27px 22px;
+
+                    .card_list_title {
+                        font-weight: 400;
+                        font-size: 24px;
+                        line-height: 24px;
+                        color: #333333;
+
+                    }
+
+                    .card_list_time {
+                        margin-top: 25px;
+                        font-size: 12px;
+                        line-height: 12px;
+                        color: #666666;
+                    }
+                }
+            }
+        }
+    }
+}

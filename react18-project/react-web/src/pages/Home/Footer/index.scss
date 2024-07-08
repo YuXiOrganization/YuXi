@@ -1,0 +1,83 @@
+.footer {
+    width: 100%;
+    // height: 403px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background-color: #293039;
+
+    .footer_link {
+        padding: 40px 0;
+        display: flex;
+        flex-direction: row;
+        font-size: 14px;
+        line-height: 14px;
+        color: #C4C4C4;
+        cursor: pointer;
+
+        .footer_link_add {
+            display: flex;
+            flex-direction: row;
+        }
+
+        .footer_link_line {
+            padding: 0 10px;
+        }
+
+        .footer_link_img {
+            margin-right: 10px;
+            width: 16px;
+            height: 16px;
+        }
+
+        span {
+            color: #C4C4C4;
+        }
+
+        .footer_link_text {
+            color: #C4C4C4;
+        }
+
+        .footer_link_text:hover {
+            color: #0060FB;
+        }
+    }
+
+
+
+    .footer_list {
+        border-bottom: 1px solid #3A414B;
+        padding: 83px 0 37px 0;
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
+        // max-width: calc(100% - 721px);
+        min-width: 1199px;
+
+        .footer_list_card {
+            min-width: 25%;
+            display: flex;
+            flex-direction: column;
+
+            .list_card_title {
+                margin-bottom: 38px;
+                font-size: 26px;
+                line-height: 26px;
+                color: #FFFFFF;
+            }
+
+            .list_card_text {
+                cursor: pointer;
+                margin-bottom: 21px;
+                font-size: 14px;
+                line-height: 14px;
+                color: #C4C4C4;
+            }
+
+            .list_card_text:hover {
+                color: #0060FB;
+            }
+        }
+    }
+}

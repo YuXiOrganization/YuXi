@@ -1,0 +1,28 @@
+.home_wrapper {
+    position: relative;
+    height: 100%;
+    width: 100%;
+
+    .fade-transform--move,
+    .fade-enter-active,
+    .fade-leave-active {
+        transition: opacity 0.5s ease, transform 0.5s;
+        // transition: opacity 0.5s;
+    }
+
+    .fade-enter {
+        opacity: 0;
+        transform: translateX(-30px);
+    }
+
+    /* .fade-leave-active below version 2.1.8 */
+    .fade-leave-to {
+        opacity: 0;
+        transform: translateX(30px);
+    }
+
+    .main-container-page {
+        display: flex;
+        flex-direction: row;
+      }
+}
