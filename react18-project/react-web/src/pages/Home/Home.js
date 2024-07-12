@@ -1,9 +1,16 @@
+import React, { useRef, forwardRef } from "react";
 import { Outlet, useLocation } from "react-router-dom";
+import { Affix } from "antd";
+import { CSSTransition, SwitchTransition } from "react-transition-group";
 import Header from "./Header/Header";
 import Footer from "./Footer/Footer";
-import { CSSTransition, TransitionGroup } from "react-transition-group";
-import React, { useRef } from "react";
-import "./transitions.css"; // 包含CSS动画效果
+// import "./transitions.css"; // 包含CSS动画效果
+import "./index.scss";
+const CustomAffix = forwardRef(({ offsetTop, children }, ref) => (
+  <Affix offsetTop={offsetTop}>
+    <div ref={ref}>{children}</div>
+  </Affix>
+));
 
 const Home = () => {
   const location = useLocation();
@@ -12,20 +19,22 @@ const Home = () => {
   return (
     <div className="home_wrapper">
       <div className="main-container">
-        <Header />
-        <TransitionGroup component={null}>
+        <CustomAffix offsetTop={0}>
+          <Header />
+        </CustomAffix>
+        <SwitchTransition mode="out-in" component={null}>
           <CSSTransition
             key={location.key}
             classNames="fade"
-            timeout={{ enter: 500, exit: 500 }}
+            timeout={{ enter: 500 }}
             nodeRef={nodeRef}
           >
             <div ref={nodeRef}>
               <Outlet />
+              <Footer />
             </div>
           </CSSTransition>
-        </TransitionGroup>
-        <Footer />
+        </SwitchTransition>
       </div>
     </div>
   );

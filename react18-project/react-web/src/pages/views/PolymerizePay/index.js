@@ -2,16 +2,17 @@ import {
   carouselDataSource,
   cardDataSource,
 } from "@/assets/dataSource/polymerizePaySource";
+import { animated } from "react-spring";
+import { useTransitionAnimation } from "@/utils/animations";
 import "./index.scss";
-import { Suspense, lazy } from "react";
+import { Suspense, lazy, memo } from "react";
 const CustomCarousel = lazy(() =>
   import("@/components/customView/CustomCarousel")
 );
 
-const CardBox = ({ abilityList }) => {
-  // console.log("abilityList", abilityList);
+const CardBox = memo(({ abilityList, style }) => {
   return (
-    <div className="box_card_box">
+    <animated.div style={style} className="box_card_box">
       <img className="card_box_img" alt="" src={abilityList.url} />
       <div className="card_box_layout">
         <div className="box_layout_title">{abilityList.title}</div>
@@ -21,14 +22,23 @@ const CardBox = ({ abilityList }) => {
           ""
         )}
       </div>
-    </div>
+    </animated.div>
   );
-};
+});
 
-const CardList = ({ list }) => {
-  // console.log("list",list)
+const CardList = memo(({ list, style }) => {
+  const [elementRef, transitions] = useTransitionAnimation(
+    list.abilityList,
+    "fadeInUp",
+    {
+      trail: 500, // 控制每个项目之间的动画延迟
+    },
+    0.5
+  );
+
   return (
-    <div
+    <animated.div
+      style={style}
       className={`polymerize_pay_box ${
         list.type === "right" ? "pay_box_action" : ""
       }`}
@@ -38,26 +48,38 @@ const CardList = ({ list }) => {
           list.type === "right" ? "box_card_action" : ""
         }`}
       >
-        <div className="box_card_title">{list.title}</div>
-        {list.abilityList.map((item, index) => {
-          return <CardBox key={index} abilityList={item} />;
-        })}
+        <div className="box_card_title" ref={elementRef}>
+          {list.title}
+        </div>
+        {transitions((styles, item) => (
+          <CardBox abilityList={item} style={styles} />
+        ))}
       </div>
       <img className="pay_box_img" alt="" src={list.url} />
-    </div>
+    </animated.div>
   );
-};
+});
 
 const PolymerizePay = () => {
+  const [elementRef, transitions] = useTransitionAnimation(
+    cardDataSource.list,
+    "fadeInUp",
+    {
+      trail: 500, // 控制每个项目之间的动画延迟
+    },
+    0.5
+  );
+
   return (
     <div className="polymerize_pay">
       <Suspense fallback={"loading..."}>
-        <CustomCarousel urls={carouselDataSource.urls}></CustomCarousel>
+        <div ref={elementRef}>
+          <CustomCarousel urls={carouselDataSource.urls}></CustomCarousel>
+        </div>
       </Suspense>
-
-      {cardDataSource.list.map((item, index) => {
-        return <CardList key={index} list={item} />;
-      })}
+      {transitions((style, item) => (
+        <CardList list={item} style={style} />
+      ))}
     </div>
   );
 };

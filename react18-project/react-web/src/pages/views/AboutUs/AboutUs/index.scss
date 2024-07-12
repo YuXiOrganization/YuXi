@@ -46,3 +46,15 @@
     }
 
 }
+
+@media (max-width: 1023px) {
+    .about_us {
+        .about_us_first {
+            .us_first_card {
+                width: 100%;
+                padding: 0 20px;
+            }
+        }
+    }
+
+}

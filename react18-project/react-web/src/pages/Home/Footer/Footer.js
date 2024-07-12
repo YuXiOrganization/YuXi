@@ -57,13 +57,11 @@ const Footer = () => {
   const { isMobile } = useSelector((state) => state.app);
   return (
     <div className="footer">
-      {!isMobile && (
-        <div className="footer_list">
-          {footerDataSource.cardList.map((item, index) => {
-            return <FooterCard key={index} cardList={item}></FooterCard>;
-          })}
-        </div>
-      )}
+      <div className="footer_list">
+        {footerDataSource.cardList.map((item, index) => {
+          return <FooterCard key={index} cardList={item}></FooterCard>;
+        })}
+      </div>
 
       <div className="footer_link">
         {footerDataSource.linkList.map((item, index) => {
@@ -72,7 +70,9 @@ const Footer = () => {
               onClick={() => openNewTab(item.url)}
               key={index}
               linkList={item}
-              isShow={footerDataSource.linkList.length - 1 !== index}
+              isShow={
+                footerDataSource.linkList.length - 1 !== index && !isMobile
+              }
             ></LinkBox>
           );
         })}

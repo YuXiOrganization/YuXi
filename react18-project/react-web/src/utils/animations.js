@@ -1,72 +1,85 @@
-import { useSpring } from "react-spring";
-import { useState, useEffect, useRef } from "react";
+import { useSpring, useTransition } from "react-spring";
+import { useIntersectionObserver } from "./useIntersectionObserver"; // 你的文件路径
+import { useState, useEffect } from "react";
 
 // Animation configurations
 const animations = {
   fadeInUp: {
-    from: { opacity: 0, transform: "translateY(150px)" },
-    to: { opacity: 1, transform: "translateY(0)" },
+    from: { opacity: 0, transform: "translateY(100px)" },
+    enter: { opacity: 1, transform: "translateY(0)" },
+    leave: { opacity: 0, transform: "translateY(100px)" },
   },
   fadeInDown: {
-    from: { opacity: 0, transform: "translateY(-150px)" },
-    to: { opacity: 1, transform: "translateY(0)" },
+    from: { opacity: 0, transform: "translateY(-100px)" },
+    enter: { opacity: 1, transform: "translateY(0)" },
+    leave: { opacity: 0, transform: "translateY(-100px)" },
   },
   fadeInLeft: {
-    from: { opacity: 0, transform: "translateX(-150px)" },
-    to: { opacity: 1, transform: "translateX(0)" },
+    from: { opacity: 0, transform: "translateX(-100px)" },
+    enter: { opacity: 1, transform: "translateX(0)" },
+    leave: { opacity: 0, transform: "translateX(-100px)" },
   },
   fadeInRight: {
-    from: { opacity: 0, transform: "translateX(150px)" },
-    to: { opacity: 1, transform: "translateX(0)" },
+    from: { opacity: 0, transform: "translateX(100px)" },
+    enter: { opacity: 1, transform: "translateX(0)" },
+    leave: { opacity: 0, transform: "translateX(100px)" },
   },
 };
 
-export const useAnimation = (hasEntered, type = "fadeInUp") => {
-  const { from, to } = animations[type] || animations.fadeInUp;
+const useAnimation = (hasEntered, type = "fadeInUp") => {
+  const { from, enter } = animations[type] || animations.fadeInUp;
   return useSpring({
-    opacity: hasEntered ? to.opacity : from.opacity,
-    transform: hasEntered ? to.transform : from.transform,
+    opacity: hasEntered ? enter.opacity : from.opacity,
+    transform: hasEntered ? enter.transform : from.transform,
     config: { duration: 800 },
   });
 };
 
-export const useIntersectionObserverAnimation = (
+const useIntersectionObserverAnimation = (
   type = "fadeInUp",
   threshold = 0.4
 ) => {
-  const [hasEntered, setHasEntered] = useState(threshold === 0);
-  const elementRef = useRef(null);
+  const [elementRef, hasEntered] = useIntersectionObserver(threshold);
+  const animationProps = useAnimation(hasEntered, type);
+  return [elementRef, animationProps];
+};
+
+const useTransitionAnimation = (
+  items,
+  type = "fadeInUp",
+  options = {},
+  threshold = 0.4
+) => {
+  const [elementRef, hasEntered] = useIntersectionObserver(threshold);
+  const [internalItems, setInternalItems] = useState([]);
 
   useEffect(() => {
-    if (threshold === 0) {
-      setHasEntered(true);
-      return;
+    if (hasEntered) {
+      // 为每个项目添加一个 index 属性
+      const itemsWithIndex = items.map((item, index) => ({
+        ...item,
+        index: item.index ?? index,
+      }));
+      // console.log("setInternalItems", items);
+      setInternalItems(itemsWithIndex);
     }
+  }, [hasEntered, items]);
 
-    const currentElement = elementRef.current;
+  const { from, enter, leave } = animations[type] || animations.fadeInUp;
 
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) {
-          setHasEntered(true);
-          observer.disconnect(); // Disconnect the observer
-        }
-      },
-      { threshold }
-    );
+  const transitions = useTransition(internalItems, {
+    keys: (item) => item.index, // 使用 index 作为 key
+    from: { opacity: 0, transform: from.transform },
+    enter: { opacity: 1, transform: enter.transform },
+    leave: { opacity: 0, transform: leave.transform },
+    ...options, // Allows additional options to be passed in
+  });
 
-    if (currentElement) {
-      observer.observe(currentElement);
-    }
+  return [elementRef, transitions];
+};
 
-    return () => {
-      if (currentElement) {
-        observer.unobserve(currentElement);
-      }
-    };
-  }, [threshold]);
-
-  const animationProps = useAnimation(hasEntered, type);
-
-  return [elementRef, animationProps];
+export {
+  useAnimation,
+  useIntersectionObserverAnimation,
+  useTransitionAnimation,
 };

@@ -1,0 +1,115 @@
+.home_page_fifth {
+    overflow: hidden;
+    width: 100%;
+    background: #F5F9FF;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    color: #333333;
+
+    .page_fifth_title {
+        margin-top: 106px;
+        font-size: 36px;
+        line-height: 36px;
+        font-weight: bold;
+    }
+
+    .page_fifth_box {
+        margin-top: 78px;
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+        flex-wrap: wrap;
+
+        .fifth_box_card {
+            width: 598px;
+            margin: 0 32px;
+            display: flex;
+            flex-direction: column;
+
+            .box_card_more {
+                cursor: pointer;
+                margin: 47px 0 74px 0;
+                font-size: 16px;
+                line-height: 16px;
+                color: #000000;
+            }
+
+            .box_card_line {
+                width: 598px;
+                height: 1px;
+                background: #E7E7E7;
+            }
+
+            .box_card_news {
+                display: flex;
+                flex-direction: column;
+                border-top: 1px solid #E7E7E7;
+                font-family: Microsoft YaHei;
+
+                .card_news_title {
+                    margin-top: 27px;
+                    max-width: 598px;
+                    font-size: 22px;
+                    line-height: 22px;
+
+                    font-weight: 400;
+                    overflow: hidden;
+                    text-overflow: ellipsis;
+                    white-space: nowrap;
+                    color: #333333;
+                }
+
+                .card_news_time {
+                    color: #626B82;
+                    font-size: 12px;
+                    line-height: 12px;
+                    margin: 27px 0;
+                }
+            }
+        }
+
+        .fifth_box_img {
+            margin: 20px 32px;
+            width: 536px;
+            height: 343px;
+        }
+    }
+
+
+}
+
+@media (max-width: 1023px) {
+    .box_card_add{
+        width: 90%;
+    }
+    .home_page_fifth {
+        .page_fifth_box {
+            .fifth_box_card {
+                margin: 0;
+                width: 100%;
+                align-items: center;
+
+                .box_card_news {
+                    margin: 0 auto;
+                    width: 90%;
+                    .card_news_title {
+                        max-width: 100%;
+                    }
+                }
+
+                .box_card_line {
+                    width: 90%;
+                }
+            }
+
+            .fifth_box_img {
+                margin: 10px 0;
+                width: 90%;
+                height: auto;
+            }
+        }
+    }
+
+}

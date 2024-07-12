@@ -1,9 +1,9 @@
 import { createBrowserRouter } from "react-router-dom";
-import Login from "../pages/Login";
-
-import NotFound from "@/pages/NotFound/NotFound";
 import { Suspense, lazy } from "react";
+import Login from "../pages/Login";
+import NotFound from "@/pages/NotFound/NotFound";
 import "./loading-bar.css";
+
 const Home = lazy(() => import("@/pages/Home/Home"));
 const HomePage = lazy(() => import("@/pages/views/HomePage/HomePage"));
 const PolymerizePay = lazy(() => import("@/pages/views/PolymerizePay/index"));
@@ -20,18 +20,17 @@ const router = createBrowserRouter([
   },
   {
     path: "/app1",
-    element: <Home />,
+    element: (
+      <Suspense fallback={<div className="loading-bar" />}>
+        <Home />
+      </Suspense>
+    ),
     children: [
       {
         index: true,
-        element: (
-          <Suspense fallback={<div className="loading-bar" />}>
-            <HomePage />
-          </Suspense>
-        ),
+        element: <HomePage />,
       },
       {
-        index: true,
         path: "/app1/PolymerizePay",
         element: (
           <Suspense fallback={<div className="loading-bar" />}>
@@ -39,9 +38,7 @@ const router = createBrowserRouter([
           </Suspense>
         ),
       },
-
       {
-        index: true,
         path: "/app1/Solution/:id",
         element: (
           <Suspense fallback={<div className="loading-bar" />}>
@@ -50,7 +47,6 @@ const router = createBrowserRouter([
         ),
       },
       {
-        index: true,
         path: "/app1/AboutUs",
         element: (
           <Suspense fallback={<div className="loading-bar" />}>
@@ -59,7 +55,6 @@ const router = createBrowserRouter([
         ),
       },
       {
-        index: true,
         path: "/app1/NewsDynamic",
         element: (
           <Suspense fallback={<div className="loading-bar" />}>

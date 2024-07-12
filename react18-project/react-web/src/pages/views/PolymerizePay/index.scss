@@ -24,13 +24,13 @@
 
             z-index: 1001;
             padding: 110px 0;
-
             width: calc(100% - 744px);
             display: flex;
             flex-direction: column;
-
+            min-height: 500px;
 
             .box_card_title {
+                width: 100%;
                 font-size: 40px;
                 line-height: 40px;
                 font-weight: bold;
@@ -39,6 +39,7 @@
             }
 
             .box_card_box {
+
                 margin-top: 40px;
                 display: flex;
                 flex-direction: row;
@@ -77,6 +78,33 @@
 
     .pay_box_action {
         background: linear-gradient(0deg, #FFFFFF, #E4EFFF) !important;
+    }
+
+}
+
+
+@media (max-width: 1023px) {
+    .polymerize_pay {
+        .polymerize_pay_box {
+            padding: 50px 0;
+            overflow: hidden;
+
+            .box_card_action {
+                margin-left: inherit;
+            }
+
+            .pay_box_card {
+                width: auto;
+                padding: 0 20px;
+            }
+
+            .pay_box_img {
+                max-width: 2752px;
+            }
+
+
+
+        }
     }
 
 }

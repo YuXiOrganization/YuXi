@@ -1,0 +1,119 @@
+.home_page_third {
+    overflow: hidden;
+    width: 100%;
+    background: linear-gradient(0deg, #FFFFFF, #E4EFFF);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    color: #333333;
+
+    .page_third_title {
+        margin-top: 106px;
+        font-size: 36px;
+        line-height: 36px;
+        font-weight: bold;
+    }
+
+    .page_third_box {
+        margin: 50px 0 44px 0;
+
+        display: flex;
+        flex-wrap: wrap;
+        flex-direction: row;
+        justify-content: center;
+        max-width: calc(100% - 672px);
+
+        .third_box_card:hover {
+            box-shadow: 0px 11px 27px 0px #E3EEFF;
+        }
+
+        .third_box_card {
+            background-color: #F5F8FF;
+            position: relative;
+            margin: 20px 12px;
+            border: 2px solid #FFFFFF;
+            width: 584px;
+            display: flex;
+            flex-direction: row;
+            justify-content: space-between;
+            align-items: center;
+            border-radius: 10px;
+
+            .box_card_img {
+                z-index: 1000;
+                position: absolute;
+                right: 0;
+                margin: 43px 17px 43px 0;
+                width: 222px;
+                height: 138px;
+            }
+
+            .box_card_text {
+                text-shadow: 2px 0 #F5F8FF;
+                z-index: 1001;
+                margin: 39px 0 39px 43px;
+                display: flex;
+                flex-direction: column;
+
+                .card_text_title {
+                    font-size: 22px;
+                    line-height: 22px;
+                    color: #333333;
+                }
+
+                .card_text_text {
+                    margin: 19px 0 0 0;
+                    font-size: 16px;
+                    color: #626B82;
+                    line-height: 16px;
+                }
+
+                .text_text_box {
+
+                    // width: 300px;
+                    // max-width: 360px;
+                    width: 360px;
+                    display: flex;
+                    flex-wrap: wrap;
+                    flex-direction: row;
+
+                    .text_box_option {
+                        min-width: 160px;
+                        display: flex;
+                        align-items: center;
+                        flex-direction: row;
+                        margin: 30px 15px 0 0;
+
+
+                        .box_option_img {
+                            margin-right: 3px;
+                            width: 15px;
+                            height: 15px;
+                        }
+                    }
+                }
+
+            }
+
+        }
+
+    }
+}
+
+@media (max-width: 1023px) {
+    .home_page_third {
+
+        .page_third_title {
+
+            padding: 0 20px;
+        }
+
+        .page_third_box {
+
+
+            max-width: 100%;
+        }
+    }
+
+}

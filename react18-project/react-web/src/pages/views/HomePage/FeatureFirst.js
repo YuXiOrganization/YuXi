@@ -1,6 +1,9 @@
 import React, { forwardRef } from "react";
 import { animated } from "react-spring";
-import { useIntersectionObserverAnimation } from "@/utils/animations";
+import {
+  useTransitionAnimation,
+  useIntersectionObserverAnimation,
+} from "@/utils/animations";
 
 // FirstCard Component
 const FirstCard = forwardRef(({ cardList }, ref) => {
@@ -17,9 +20,13 @@ const FirstCard = forwardRef(({ cardList }, ref) => {
 
 // FeatureFirst Component
 const FeatureFirst = ({ cardList, getApp }) => {
-  const [elementRef, animationProps] = useIntersectionObserverAnimation(
-    !getApp.isMobile ? "fadeInDown" : "fadeInLeft",
-    0.1
+  const [elementRef, transitions] = useTransitionAnimation(
+    cardList,
+    "fadeInUp",
+    {
+      trail: 500, // 控制每个项目之间的动画延迟
+    },
+    0.5
   );
 
   const [elementRefUp, animationPropsUp] = useIntersectionObserverAnimation(
@@ -28,7 +35,7 @@ const FeatureFirst = ({ cardList, getApp }) => {
   );
 
   return (
-    <div className="home_page_first" >
+    <div className="home_page_first">
       <div ref={elementRefUp}>
         <animated.div style={animationPropsUp} className="page_first_title">
           商户数字化经营运营商
@@ -37,11 +44,13 @@ const FeatureFirst = ({ cardList, getApp }) => {
 
       {/* {!getApp.isMobile && ( */}
       <div ref={elementRef} className="page_first_boxadd">
-        <animated.div style={animationProps} className="page_first_box">
-          {cardList.map((item, index) => (
-            <FirstCard key={index} cardList={item} />
+        <div className="page_first_box">
+          {transitions((style, item) => (
+            <animated.div style={style}>
+              <FirstCard cardList={item} />
+            </animated.div>
           ))}
-        </animated.div>
+        </div>
       </div>
       {/* )} */}
     </div>

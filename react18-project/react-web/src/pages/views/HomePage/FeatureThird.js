@@ -1,6 +1,8 @@
 import img006 from "@/assets/images/homePage/006.webp";
-import React, { useState, useEffect, useRef } from "react";
-import { useSpring, animated } from "react-spring";
+import './featureThird.scss'
+import { useIntersectionObserverAnimation } from "@/utils/animations";
+import React from "react";
+import { animated } from "react-spring";
 
 const ThirdOption = ({ item }) => {
   return (
@@ -18,9 +20,9 @@ const ThirdCard = React.forwardRef(({ item, style }, ref) => {
         <div className="card_text_title">{item.title}</div>
         <div className="card_text_text">{item.text}</div>
         <div className="text_text_box">
-          {item.optionList.map((optionItem, index) => {
-            return <ThirdOption item={optionItem} key={index}></ThirdOption>;
-          })}
+          {item.optionList.map((optionItem, index) => (
+            <ThirdOption item={optionItem} key={index} />
+          ))}
         </div>
       </div>
       <img className="box_card_img" alt="" src={item.url} />
@@ -29,62 +31,31 @@ const ThirdCard = React.forwardRef(({ item, style }, ref) => {
 });
 
 const FeatureThird = ({ cardList, getApp }) => {
-  const [hasEntered, setHasEntered] = useState(false);
-  const elementRef = useRef(null);
-
-  useEffect(() => {
-    const currentElement = elementRef.current;
-
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            setHasEntered(true);
-            observer.disconnect(); // 断开观察器
-          }
-        });
-      },
-      { threshold: 0.4 } // 进入视口的 40% 时触发
+  const isMobile = getApp.isMobile;
+  const [elementRefLeft, animationPropsLeft] = useIntersectionObserverAnimation(
+    isMobile ? "fadeInRight" : "fadeInLeft",
+    0.1
+  );
+  const [elementRefRight, animationPropsRight] =
+    useIntersectionObserverAnimation(
+      isMobile ? "fadeInLeft" : "fadeInRight",
+      0.1
     );
 
-    if (currentElement) {
-      observer.observe(currentElement);
-    }
-
-    return () => {
-      if (currentElement) {
-        observer.unobserve(currentElement);
-      }
-    };
-  }, []);
-
-  const animationPropsY = useSpring({
-    opacity: hasEntered ? 1 : 0,
-    transform: hasEntered ? "translateX(0)" : "translateX(-150px)",
-    config: { duration: 500 },
-  });
-
-  const animationPropsX = useSpring({
-    opacity: hasEntered ? 1 : 0,
-    transform: hasEntered ? "translateX(0)" : "translateX(150px)",
-    config: { duration: 500 },
-  });
-
   return (
-    <div ref={elementRef} className="home_page_third">
+    <div className="home_page_third">
       <div className="page_third_title">行业数字化解决方案，激发增长新动能</div>
 
-      {!getApp.isMobile && (
-        <div className="page_third_box">
-          {cardList.map((item, index) => (
-            <ThirdCard
-              style={index % 2 === 0 ? animationPropsY : animationPropsX}
-              item={item}
-              key={item.id}
-            />
-          ))}
-        </div>
-      )}
+      <div className="page_third_box">
+        {cardList.map((item, index) => (
+          <ThirdCard
+            ref={index % 2 === 0 ? elementRefLeft : elementRefRight}
+            style={index % 2 === 0 ? animationPropsLeft : animationPropsRight}
+            item={item}
+            key={item.id}
+          />
+        ))}
+      </div>
     </div>
   );
 };

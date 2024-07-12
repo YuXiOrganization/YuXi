@@ -17,6 +17,7 @@ import img013 from "@/assets/images/homePage/013.webp";
 
 import img014 from "@/assets/images/homePage/014.webp";
 import img015 from "@/assets/images/homePage/015.webp";
+
 const carouselDataSource = {
   urls: [img001],
 };
@@ -250,5 +251,5 @@ export {
   fourthDataSource,
   fifthDataSource,
   carouselDataSource,
-  headerDataSource
+  headerDataSource,
 };

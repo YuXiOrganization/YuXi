@@ -39,6 +39,7 @@
                 justify-content: center;
                 font-family: Microsoft YaHei;
                 font-weight: 400;
+
                 .box_card_title {
                     width: 202px;
                     font-size: 22px;
@@ -81,6 +82,7 @@
     }
 
     .solution_first {
+        min-height: 700px;
         width: 100%;
         background: #F5F9FF;
         display: flex;
@@ -140,4 +142,39 @@
         }
 
     }
+}
+
+
+@media (max-width: 1023px) {
+    .solution {
+        .solution_second {
+            overflow: hidden;
+            .solution_second_title {
+                margin-top: 50px;
+            }
+
+            .solution_second_box {
+                margin: 35px 0 70px 0;
+            }
+        }
+
+        .solution_first {
+            .solution_first_title {
+                margin-top: 50px;
+            }
+
+            .solution_first_box {
+                margin: 35px 0 70px 0;
+                flex-direction: column;
+
+                .first_box_card {
+                    margin: 10px 30px;
+                }
+
+            }
+        }
+
+        .solution_second {}
+    }
+
 }
