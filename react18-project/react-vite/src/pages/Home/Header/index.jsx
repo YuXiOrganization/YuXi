@@ -78,7 +78,7 @@ const Header = () => {
           className="header_ico_img"
           src={headerDataSource.headerImg}
         />
-        <div className="header_ico_text">真商助手</div>
+        <div className="header_ico_text">{headerDataSource.title}</div>
         {!isMobile && (
           <Menu
             onClick={(e) => handleClick(e, false)}
