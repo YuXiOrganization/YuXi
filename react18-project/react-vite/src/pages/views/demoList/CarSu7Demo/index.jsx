@@ -9,6 +9,7 @@ import {
   OrbitControls,
 } from "@react-three/drei";
 import "./index.scss"; // 确保引入的样式文件名正确
+import SuCar from "./SuCar";
 
 const Sphere = () => {
   const { roughness } = useControls({
@@ -46,7 +47,7 @@ const Env = () => {
       onChange: (value) => startTransition(() => setPreset(value)),
     },
   });
-// blur -- backgroundBlurriness 发生变更https://github.com/pmndrs/drei?tab=readme-ov-file#environment
+  // blur -- backgroundBlurriness 发生变更https://github.com/pmndrs/drei?tab=readme-ov-file#environment
   return <Environment preset={preset} background backgroundBlurriness={blur} />;
 };
 
@@ -54,7 +55,8 @@ const CarSu7Demo = () => {
   return (
     <div className="car_su">
       <Canvas shadows camera={{ position: [0, 0, 4.5], fov: 50 }}>
-        <group position={[0, -0.65, 0]}>
+        <SuCar scale={1} />
+        {/* <group position={[0, -0.65, 0]}>
           <Sphere />
           <AccumulativeShadows
             temporal
@@ -73,15 +75,16 @@ const CarSu7Demo = () => {
               bias={0.001}
             />
           </AccumulativeShadows>
-        </group>
+        </group> */}
         <Env />
         <OrbitControls
           autoRotate
-          autoRotateSpeed={4}
-          enablePan={false}
-          enableZoom={false}
-          minPolarAngle={Math.PI / 2.1}
-          maxPolarAngle={Math.PI / 2.1}
+          autoRotateSpeed={1}
+          enablePan={true}
+          enableRotate={true}
+          enableZoom={true}
+        
+          maxPolarAngle={Math.PI / 2.5}
         />
       </Canvas>
     </div>
