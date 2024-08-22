@@ -1,4 +1,4 @@
-import { useState, useTransition } from "react";
+import { useState, useTransition, Suspense } from "react";
 import { useControls } from "leva";
 import { Canvas } from "@react-three/fiber";
 import {
@@ -10,6 +10,7 @@ import {
 } from "@react-three/drei";
 import "./index.scss"; // 确保引入的样式文件名正确
 import SuCar from "./SuCar";
+import Loader from "../common/Loader";
 
 const Sphere = () => {
   const { roughness } = useControls({
@@ -55,7 +56,10 @@ const CarSu7Demo = () => {
   return (
     <div className="car_su">
       <Canvas shadows camera={{ position: [0, 0, 4.5], fov: 50 }}>
-        <SuCar scale={1} />
+        <Suspense fallback={<Loader />}>
+          <SuCar scale={1} />
+        </Suspense>
+
         {/* <group position={[0, -0.65, 0]}>
           <Sphere />
           <AccumulativeShadows
@@ -78,12 +82,11 @@ const CarSu7Demo = () => {
         </group> */}
         <Env />
         <OrbitControls
-          autoRotate
+          autoRotate={false}
           autoRotateSpeed={1}
           enablePan={true}
           enableRotate={true}
           enableZoom={true}
-        
           maxPolarAngle={Math.PI / 2.5}
         />
       </Canvas>
