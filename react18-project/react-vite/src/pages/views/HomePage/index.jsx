@@ -1,7 +1,16 @@
+import { Card } from "antd";
+import "./index.scss";
+const HomePage = () => {
+  // console.log("RouteProgress mounted")
+  return (
+    <div className="home_page">
+      <Card title="Card title" bordered className="home_page_card">
+        <p>Card content</p>
+        <p>Card content</p>
+        <p>Card content</p>
+      </Card>
+    </div>
+  );
+};
 
-const HomePage=()=>{
-
-    return <div>HomePage</div>
-}
-
-export default HomePage
+export default HomePage;

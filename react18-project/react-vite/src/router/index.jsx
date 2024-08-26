@@ -7,6 +7,7 @@ import "./loading-bar.css";
 const Home = lazy(() => import("@/pages/Home"));
 const HomePage = lazy(() => import("@/pages/views/HomePage"));
 const CarSu7Demo = lazy(() => import("@/pages/views/demoList/CarSu7Demo"));
+const DemoList = lazy(() => import("@/pages/views/demoList/DemoList"));
 
 const router = createBrowserRouter([
   {
@@ -26,6 +27,14 @@ const router = createBrowserRouter([
         element: (
           <Suspense fallback={<div className="loading-bar" />}>
             <CarSu7Demo />
+          </Suspense>
+        ),
+      },
+      {
+        path: "/app1/demo",
+        element: (
+          <Suspense fallback={<div className="loading-bar" />}>
+            <DemoList />
           </Suspense>
         ),
       },

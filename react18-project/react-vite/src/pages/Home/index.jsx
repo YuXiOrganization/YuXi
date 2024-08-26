@@ -6,7 +6,7 @@ import Header from "./Header";
 import "./index.scss";
 
 const Home = () => {
-  console.log("scene");
+  // console.log("scene");
   return (
     <div className="home_wrapper">
 
