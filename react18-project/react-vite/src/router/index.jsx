@@ -13,7 +13,7 @@ const router = createBrowserRouter([
   {
     path: "/app1",
     element: (
-      <Suspense fallback={<div className="loading-bar" />}>
+      <Suspense >
         <Home />
       </Suspense>
     ),
@@ -25,7 +25,7 @@ const router = createBrowserRouter([
       {
         path: "/app1/demo/su7",
         element: (
-          <Suspense fallback={<div className="loading-bar" />}>
+          <Suspense>
             <CarSu7Demo />
           </Suspense>
         ),
@@ -33,7 +33,7 @@ const router = createBrowserRouter([
       {
         path: "/app1/demo",
         element: (
-          <Suspense fallback={<div className="loading-bar" />}>
+          <Suspense>
             <DemoList />
           </Suspense>
         ),

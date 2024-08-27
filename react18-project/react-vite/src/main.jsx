@@ -4,7 +4,6 @@ import ReactDOM from "react-dom/client";
 
 import store from "./store"; // 确保正确导入 store
 
-
 import "./assets/styles/overallSituation.scss";
 import ResizeHandler from "./utils/ResizeHandler";
 
@@ -15,9 +14,6 @@ ReactDOM.createRoot(document.getElementById("root")).render(
     <Provider store={store}>
       <ResizeHandler />
       <App></App>
-      {/* <RouterProvider router={router}>
-        <RouteProgress />
-      </RouterProvider> */}
     </Provider>
   </React.StrictMode>
 );

@@ -1,7 +1,6 @@
 import { Card } from "antd";
 import "./index.scss";
 const HomePage = () => {
-  // console.log("RouteProgress mounted")
   return (
     <div className="home_page">
       <Card title="Card title" bordered className="home_page_card">

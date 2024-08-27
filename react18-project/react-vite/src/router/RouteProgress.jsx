@@ -1,16 +1,29 @@
-import React, { useEffect } from "react";
+import { useEffect, useCallback } from "react";
 import { useLocation } from "react-router-dom";
+import NProgress from "@/utils/nprogress";
+import { useDispatch } from "react-redux";
+import { setDefaultOpenKeys } from "@/store/modules/appStore";
 
 const RouteProgress = () => {
-  console.log("RouteChangeHandler rendered"); // 确认组件被渲染
-
   const location = useLocation();
+  const dispatch = useDispatch();
+
+  const startProgress = useCallback(() => {
+    NProgress.start();
+  }, []);
+
+  const stopProgress = useCallback(() => {
+    NProgress.done();
+    dispatch(setDefaultOpenKeys(location.pathname));
+  }, [location.pathname, dispatch]);
 
   useEffect(() => {
-    console.log("路由切换到:", location.pathname);
-  }, [location]);
+    startProgress();
 
-  return <div>1111</div>;
+    stopProgress(); // 直接调用停止进度条
+  }, [location.pathname, startProgress, stopProgress]);
+
+  return null;
 };
 
 export default RouteProgress;
