@@ -81,6 +81,7 @@ const Header = () => {
         <div className="header_ico_text">{headerDataSource.title}</div>
         {!isMobile && (
           <Menu
+          className="header_ico_menu"
             onClick={(e) => handleClick(e, false)}
             selectedKeys={[defaultOpenKeys]}
             mode="horizontal"
