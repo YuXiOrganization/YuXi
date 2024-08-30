@@ -3,9 +3,14 @@ import { MenuOutlined, CloseOutlined, DownOutlined } from "@ant-design/icons";
 import { Menu } from "antd";
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { useEffect, useState, useCallback } from "react";
+import { useEffect, useState, useCallback, lazy, Suspense } from "react";
 import { setDefaultOpenKeys } from "@/store/modules/appStore";
 import { headerDataSource } from "@/assets/dataSource/appDataSource";
+
+// 使用 lazy 和 Suspense 延迟加载非关键组件
+const MobileMenuIcon = lazy(() =>
+  import(/* webpackChunkName: "MobileMenuIcon" */ "@ant-design/icons")
+);
 
 const Header = () => {
   const [open, setOpen] = useState(false);
@@ -42,6 +47,7 @@ const Header = () => {
     setMenuItems(updatedMenuItems);
   }, [isMobile]);
 
+  // 移动端菜单组件使用懒加载
   const MobileMenu = () => (
     <>
       {open && (
@@ -54,19 +60,21 @@ const Header = () => {
           />
         </div>
       )}
-      <div className="header_btn">
-        {open ? (
-          <CloseOutlined
-            onClick={() => setOpen(!open)}
-            className="header_btn_icon"
-          />
-        ) : (
-          <MenuOutlined
-            onClick={() => setOpen(!open)}
-            className="header_btn_icon"
-          />
-        )}
-      </div>
+      <Suspense fallback={<div>loading...</div>}>
+        <div className="header_btn">
+          {open ? (
+            <CloseOutlined
+              onClick={() => setOpen(!open)}
+              className="header_btn_icon"
+            />
+          ) : (
+            <MenuOutlined
+              onClick={() => setOpen(!open)}
+              className="header_btn_icon"
+            />
+          )}
+        </div>
+      </Suspense>
     </>
   );
 
@@ -77,11 +85,12 @@ const Header = () => {
           alt="Logo"
           className="header_ico_img"
           src={headerDataSource.headerImg}
+          loading="eager" // 优先加载 Logo 图像
         />
         <div className="header_ico_text">{headerDataSource.title}</div>
         {!isMobile && (
           <Menu
-          className="header_ico_menu"
+            className="header_ico_menu"
             onClick={(e) => handleClick(e, false)}
             selectedKeys={[defaultOpenKeys]}
             mode="horizontal"

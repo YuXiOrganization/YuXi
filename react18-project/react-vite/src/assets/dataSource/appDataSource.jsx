@@ -9,27 +9,15 @@ const headerDataSource = {
       key: "/app1",
     },
     {
-      label: "Demo",
+      label: "three.js",
       key: "/app1/demo",
     },
     {
-      label: "Demo1",
+      label: "layout",
       key: "/app1/demo1",
     },
-    // {
-    //   label: "关于我们",
-    //   key: "/app1/SubMenusecond",
-    //   children: [
-    //     {
-    //       label: "关于我们",
-    //       key: "/app1/AboutUs",
-    //     },
-    //     {
-    //       label: "新闻动态",
-    //       key: "/app1/NewsDynamic",
-    //     },
-    //   ],
-    // },
+   
+    
   ],
 };
 
